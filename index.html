@@ -1,80 +1,95 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .home-container {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: #0f172a;
+            padding: 30px;
+            border-radius: 20px;
+            color: white;
+            width: 800px;
+        }
 
-<title>Zrx Launcher</title>
+        .hero-section {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid #334155;
+            display: flex;
+            justify-content: space-between; /* متن سمت راست، دکمه‌ها سمت چپ */
+            align-items: center;
+            margin-bottom: 25px;
+        }
 
-<link rel="stylesheet" href="style.css">
+        /* کانتینر دکمه‌ها در سمت چپ */
+        .actions-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700&display=swap" rel="stylesheet">
+        .play-button {
+            background: linear-gradient(90deg, #3b82f6, #2563eb);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+        .secondary-button {
+            background: #334155;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+        }
 
+        .play-button:hover { background: #2563eb; transform: scale(1.02); }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .stat-card {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid #334155;
+        }
+    </style>
 </head>
-
 <body>
 
-<div id="loading">
+<div class="home-container">
+    <div class="hero-section">
+        <!-- بخش متن (راست) -->
+        <div class="welcome-text">
+            <h2>سلام HH_amazig</h2>
+            <p>آماده پرتاب به دنیای ماینکرفت؟</p>
+        </div>
 
-<div class="loader"></div>
+        <!-- بخش دکمه‌ها (چپ) -->
+        <div class="actions-container">
+            <button class="play-button">اجرای بازی</button>
+            <button class="secondary-button">تنظیمات لانچر</button>
+        </div>
+    </div>
 
-<h2>در حال بارگذاری...</h2>
-
+    <div class="stats-row">
+        <div class="stat-card">2 <br> <small>سرور ساخته شده</small></div>
+        <div class="stat-card">0 <br> <small>نسخه نصب شده</small></div>
+        <div class="stat-card">1 <br> <small>پروفایل آماده</small></div>
+    </div>
 </div>
-
-<div id="particles-js"></div>
-
-<header>
-
-<h1>Zrx Launcher</h1>
-
-<button id="theme">🌙</button>
-
-</header>
-
-<nav>
-
-<button class="btn active">🏠 خانه</button>
-
-<button class="btn">📥 دانلود</button>
-
-<button class="btn">⚙ تنظیمات</button>
-
-<button class="btn">ℹ درباره</button>
-
-</nav>
-
-<section class="glass">
-
-<h2>به Zrx Launcher خوش آمدید</h2>
-
-<p>
-
-یک لانچر حرفه‌ای برای Minecraft Java
-
-</p>
-
-<button class="download">
-
-دانلود لانچر
-
-</button>
-
-</section>
-
-<div class="progress">
-
-<div id="bar"></div>
-
-</div>
-
-<div id="cursor"></div>
-
-<script src="script.js"></script>
 
 </body>
-
 </html>

@@ -1,55 +1,1229 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-<head>
-    <style>
-        /* استایل‌های قبلی ثابت است */
-        body { background: #0f172a; font-family: Tahoma; color: white; }
-        .hero-section { background: #1e293b; padding: 30px; border-radius: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .play-button { background: #3b82f6; padding: 15px 40px; border: none; border-radius: 12px; color: white; cursor: pointer; }
-        .settings-button { background: #475569; padding: 10px 20px; border: none; border-radius: 8px; color: white; cursor: pointer; margin-top: 10px; }
 
-        /* استایل پنجره تنظیمات (Modal) */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; }
-        .modal-content { background: #1e293b; padding: 30px; border-radius: 20px; width: 400px; }
-        .close-btn { cursor: pointer; color: red; float: left; }
-    </style>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Zrx Launcher</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
 </head>
+
 <body>
 
-<div class="hero-section">
-    <div>
-        <h2>سلام HH_amazig</h2>
-        <p>آماده پرتاب به دنیای ماینکرفت؟</p>
-    </div>
-    <div style="display: flex; flex-direction: column;">
-        <button class="play-button">اجرای بازی</button>
-        <button class="settings-button" onclick="openSettings()">تنظیمات لانچر</button>
-    </div>
+<div id="loading">
+
+<div class="loader"></div>
+
+<h2>در حال بارگذاری...</h2>
+
 </div>
 
-<!-- پنجره تنظیمات -->
-<div id="settingsModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeSettings()">بستن</span>
-        <h3>تنظیمات لانچر</h3>
-        <hr>
-        <label>مقدار رم اختصاصی (GB):</label>
-        <input type="number" value="4" style="width: 100%; margin: 10px 0;">
-        
-        <label>انتخاب زبان:</label>
-        <select style="width: 100%; margin: 10px 0;">
-            <option>فارسی</option>
-            <option>English</option>
-        </select>
-        
-        <button class="play-button" style="width: 100%; margin-top: 20px;">ذخیره تغییرات</button>
-    </div>
+<div id="particles-js"></div>
+
+<header>
+
+<h1>Zrx Launcher</h1>
+
+<button id="theme">🌙</button>
+
+</header>
+
+<nav>
+
+<button class="btn active">🏠 خانه</button>
+
+<button class="btn">📥 دانلود</button>
+
+<button class="btn">⚙ تنظیمات</button>
+
+<button class="btn">ℹ درباره</button>
+
+</nav>
+
+<section class="glass">
+
+<h2>به Zrx Launcher خوش آمدید</h2>
+
+<p>
+
+یک لانچر حرفه‌ای برای Minecraft Java
+
+</p>
+
+<button class="download">
+
+دانلود لانچر
+
+</button>
+
+</section>
+
+<div class="progress">
+
+<div id="bar"></div>
+
 </div>
 
-<script>
-    function openSettings() { document.getElementById('settingsModal').style.display = 'flex'; }
-    function closeSettings() { document.getElementById('settingsModal').style.display = 'none'; }
-</script>
+<div id="cursor"></div>
+
+<script src="script.js"></script>
 
 </body>
+
 </html>
+/* ===========================
+   ZRX LAUNCHER STYLE.CSS
+   PART 1
+=========================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Vazirmatn",sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+
+background:#050816;
+overflow-x:hidden;
+color:white;
+
+}
+
+/* Particles */
+
+#particles-js{
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+z-index:-5;
+
+}
+
+/* Loading */
+
+#loading{
+
+position:fixed;
+
+width:100%;
+
+height:100%;
+
+background:#050816;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+z-index:99999;
+
+transition:1s;
+
+}
+
+.loader{
+
+width:90px;
+
+height:90px;
+
+border-radius:50%;
+
+border:8px solid rgba(255,255,255,.1);
+
+border-top:8px solid cyan;
+
+animation:spin 1s linear infinite;
+
+margin-bottom:25px;
+
+}
+
+@keyframes spin{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+/* Header */
+
+header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:25px 50px;
+
+backdrop-filter:blur(25px);
+
+background:rgba(255,255,255,.05);
+
+position:sticky;
+
+top:0;
+
+z-index:100;
+
+}
+
+header h1{
+
+font-size:35px;
+
+font-weight:bold;
+
+color:#00ffff;
+
+text-shadow:0 0 25px cyan;
+
+}
+
+/* Theme Button */
+
+#theme{
+
+width:55px;
+
+height:55px;
+
+border:none;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.08);
+
+color:white;
+
+cursor:pointer;
+
+font-size:22px;
+
+transition:.4s;
+
+backdrop-filter:blur(20px);
+
+}
+
+#theme:hover{
+
+transform:rotate(180deg);
+
+background:cyan;
+
+color:black;
+
+box-shadow:0 0 30px cyan;
+
+}
+
+/* Menu */
+
+nav{
+
+display:flex;
+
+justify-content:center;
+
+gap:25px;
+
+padding:35px;
+
+flex-wrap:wrap;
+
+}
+
+.btn{
+
+padding:18px 40px;
+
+border:none;
+
+border-radius:18px;
+
+font-size:18px;
+
+cursor:pointer;
+
+color:white;
+
+background:linear-gradient(145deg,#101827,#1f2a40);
+
+box-shadow:
+
+0 10px 30px rgba(0,255,255,.15),
+
+inset 0 1px 0 rgba(255,255,255,.08);
+
+transition:.35s;
+
+}
+
+.btn:hover{
+
+transform:translateY(-8px) scale(1.05);
+
+box-shadow:
+
+0 0 35px cyan,
+
+0 0 80px rgba(0,255,255,.4);
+
+}
+
+.btn.active{
+
+background:cyan;
+
+color:black;
+
+font-weight:bold;
+
+}
+
+/* Glass */
+
+.glass{
+
+width:90%;
+
+max-width:950px;
+
+margin:40px auto;
+
+padding:50px;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(25px);
+
+border-radius:35px;
+
+border:1px solid rgba(255,255,255,.15);
+
+box-shadow:
+
+0 20px 60px rgba(0,0,0,.5);
+
+text-align:center;
+
+}
+
+.glass h2{
+
+font-size:40px;
+
+margin-bottom:20px;
+
+}
+
+.glass p{
+
+font-size:18px;
+
+opacity:.85;
+
+line-height:2;
+
+}
+
+/* Download Button */
+
+.download{
+
+margin-top:35px;
+
+padding:18px 60px;
+
+font-size:22px;
+
+border:none;
+
+border-radius:18px;
+
+cursor:pointer;
+
+background:linear-gradient(45deg,#00ffff,#0066ff);
+
+color:white;
+
+transition:.4s;
+
+}
+
+.download:hover{
+
+transform:scale(1.08);
+
+box-shadow:
+
+0 0 40px cyan,
+
+0 0 90px #0099ff;
+
+}
+
+/* Progress */
+
+.progress{
+
+width:90%;
+
+height:15px;
+
+margin:60px auto;
+
+border-radius:20px;
+
+overflow:hidden;
+
+background:rgba(255,255,255,.08);
+
+}
+
+#bar{
+
+height:100%;
+
+width:0%;
+
+background:linear-gradient(90deg,
+
+cyan,
+
+#0099ff,
+
+cyan);
+
+transition:.3s;
+
+}
+
+/* Cursor */
+
+#cursor{
+
+position:fixed;
+
+width:22px;
+
+height:22px;
+
+border-radius:50%;
+
+background:cyan;
+
+pointer-events:none;
+
+mix-blend-mode:screen;
+
+box-shadow:
+
+0 0 20px cyan,
+
+0 0 60px cyan;
+
+transform:translate(-50%,-50%);
+
+z-index:999999;
+
+}
+
+/* Cards */
+
+.card{
+
+margin:35px auto;
+
+padding:30px;
+
+width:90%;
+
+max-width:800px;
+
+border-radius:25px;
+
+background:rgba(255,255,255,.06);
+
+backdrop-filter:blur(18px);
+
+transition:.35s;
+
+}
+
+.card:hover{
+
+transform:translateY(-10px);
+
+box-shadow:0 0 40px cyan;
+
+}
+/* ===========================
+   ZRX STYLE.CSS
+   PART 2
+===========================*/
+
+/* Footer */
+
+footer{
+margin-top:80px;
+padding:40px;
+text-align:center;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(20px);
+font-size:18px;
+opacity:.8;
+}
+
+/* Floating Animation */
+
+@keyframes floating{
+
+0%{
+transform:translateY(0px);
+}
+
+50%{
+transform:translateY(-12px);
+}
+
+100%{
+transform:translateY(0px);
+}
+
+}
+
+.glass{
+
+animation:floating 5s ease-in-out infinite;
+
+}
+
+/* Fade */
+
+@keyframes fadeUp{
+
+0%{
+
+opacity:0;
+
+transform:translateY(50px);
+
+}
+
+100%{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+.card{
+
+animation:fadeUp .8s ease;
+
+}
+
+/* Glow */
+
+@keyframes glow{
+
+0%{
+
+box-shadow:0 0 20px cyan;
+
+}
+
+50%{
+
+box-shadow:0 0 60px cyan;
+
+}
+
+100%{
+
+box-shadow:0 0 20px cyan;
+
+}
+
+}
+
+.download{
+
+animation:glow 3s infinite;
+
+}
+
+/* Gradient */
+
+body{
+
+background:
+
+linear-gradient(-45deg,
+
+#020617,
+
+#09111f,
+
+#071a33,
+
+#050816);
+
+background-size:400% 400%;
+
+animation:bgmove 20s infinite;
+
+}
+
+@keyframes bgmove{
+
+0%{
+
+background-position:0 50%;
+
+}
+
+50%{
+
+background-position:100% 50%;
+
+}
+
+100%{
+
+background-position:0 50%;
+
+}
+
+}
+
+/* Card Hover */
+
+.card:hover{
+
+transform:translateY(-15px) scale(1.03);
+
+}
+
+/* Neon Border */
+
+.card::before{
+
+content:"";
+
+position:absolute;
+
+inset:-2px;
+
+border-radius:25px;
+
+padding:2px;
+
+background:linear-gradient(
+
+45deg,
+
+cyan,
+
+blue,
+
+cyan
+
+);
+
+-webkit-mask:
+
+linear-gradient(#fff 0 0) content-box,
+
+linear-gradient(#fff 0 0);
+
+-webkit-mask-composite:xor;
+
+mask-composite:exclude;
+
+opacity:.4;
+
+}
+
+/* Buttons */
+
+button{
+
+transition:.35s;
+
+}
+
+button:active{
+
+transform:scale(.92);
+
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+
+width:10px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+background:cyan;
+
+border-radius:30px;
+
+}
+
+::-webkit-scrollbar-track{
+
+background:#050816;
+
+}
+
+/* Selection */
+
+::selection{
+
+background:cyan;
+
+color:black;
+
+}
+
+/* Dark Theme */
+
+.dark{
+
+background:#ffffff;
+
+color:#111;
+
+}
+
+.dark header{
+
+background:rgba(255,255,255,.7);
+
+}
+
+.dark .glass{
+
+background:rgba(255,255,255,.6);
+
+color:#111;
+
+}
+
+.dark .btn{
+
+background:white;
+
+color:black;
+
+}
+
+.dark footer{
+
+background:#eeeeee;
+
+color:black;
+
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+
+header{
+
+padding:20px;
+
+}
+
+header h1{
+
+font-size:28px;
+
+}
+
+.glass{
+
+padding:35px;
+
+}
+
+.glass h2{
+
+font-size:28px;
+
+}
+
+.download{
+
+width:100%;
+
+}
+
+}
+
+@media(max-width:650px){
+
+nav{
+
+flex-direction:column;
+
+align-items:center;
+
+}
+
+.btn{
+
+width:90%;
+
+}
+
+.glass{
+
+width:95%;
+
+}
+
+header{
+
+flex-direction:column;
+
+gap:15px;
+
+}
+
+}
+
+/* Shine Effect */
+
+.download::after{
+
+content:"";
+
+position:absolute;
+
+top:-50%;
+
+left:-100%;
+
+width:60px;
+
+height:200%;
+
+background:rgba(255,255,255,.5);
+
+transform:rotate(25deg);
+
+transition:.7s;
+
+}
+
+.download:hover::after{
+
+left:130%;
+
+}
+
+/* Pulse */
+
+@keyframes pulse{
+
+0%{
+
+transform:scale(1);
+
+}
+
+50%{
+
+transform:scale(1.06);
+
+}
+
+100%{
+
+transform:scale(1);
+
+}
+
+}
+
+.btn.active{
+
+animation:pulse 2s infinite;
+
+}
+
+/* Image */
+
+img{
+
+max-width:100%;
+
+display:block;
+
+border-radius:20px;
+
+}
+
+/* Section */
+
+section{
+
+padding:20px;
+
+}
+
+/* End */
+/* ==========================
+   ZRX Launcher
+   script.js
+========================== */
+
+// Loading Screen
+
+window.addEventListener("load", () => {
+
+const loading = document.getElementById("loading");
+
+setTimeout(() => {
+
+loading.style.opacity = "0";
+
+loading.style.pointerEvents = "none";
+
+},1500);
+
+});
+
+// ==========================
+// Particles
+// ==========================
+
+particlesJS("particles-js",{
+
+particles:{
+
+number:{
+
+value:80,
+
+density:{
+enable:true,
+value_area:800
+}
+
+},
+
+color:{
+value:"#00ffff"
+},
+
+shape:{
+type:"circle"
+},
+
+opacity:{
+value:.5
+},
+
+size:{
+value:3
+},
+
+move:{
+enable:true,
+speed:2
+},
+
+line_linked:{
+enable:true,
+distance:140,
+color:"#00ffff",
+opacity:.35,
+width:1
+}
+
+},
+
+interactivity:{
+
+detect_on:"canvas",
+
+events:{
+
+onhover:{
+enable:true,
+mode:"grab"
+},
+
+onclick:{
+enable:true,
+mode:"push"
+}
+
+},
+
+modes:{
+
+grab:{
+distance:180
+},
+
+push:{
+particles_nb:4
+}
+
+}
+
+}
+
+});
+
+// ==========================
+// Cursor
+// ==========================
+
+const cursor=document.getElementById("cursor");
+
+document.addEventListener("mousemove",(e)=>{
+
+cursor.style.left=e.clientX+"px";
+
+cursor.style.top=e.clientY+"px";
+
+});
+
+// ==========================
+// Progress Bar
+// ==========================
+
+window.addEventListener("scroll",()=>{
+
+let winScroll=document.body.scrollTop||
+
+document.documentElement.scrollTop;
+
+let height=document.documentElement.scrollHeight-
+
+document.documentElement.clientHeight;
+
+let scrolled=(winScroll/height)*100;
+
+document.getElementById("bar").style.width=scrolled+"%";
+
+});
+
+// ==========================
+// Theme
+// ==========================
+
+const theme=document.getElementById("theme");
+
+theme.onclick=()=>{
+
+document.body.classList.toggle("dark");
+
+if(document.body.classList.contains("dark")){
+
+localStorage.setItem("theme","light");
+
+theme.innerHTML="☀️";
+
+}else{
+
+localStorage.setItem("theme","dark");
+
+theme.innerHTML="🌙";
+
+}
+
+};
+
+if(localStorage.getItem("theme")=="light"){
+
+document.body.classList.add("dark");
+
+theme.innerHTML="☀️";
+
+}
+
+// ==========================
+// Button Ripple
+// ==========================
+
+document.querySelectorAll("button").forEach(btn=>{
+
+btn.addEventListener("click",(e)=>{
+
+const circle=document.createElement("span");
+
+circle.style.position="absolute";
+
+circle.style.width="20px";
+
+circle.style.height="20px";
+
+circle.style.borderRadius="50%";
+
+circle.style.background="rgba(255,255,255,.5)";
+
+circle.style.left=e.offsetX+"px";
+
+circle.style.top=e.offsetY+"px";
+
+circle.style.transform="translate(-50%,-50%)";
+
+circle.style.animation="ripple .6s linear";
+
+btn.appendChild(circle);
+
+setTimeout(()=>{
+
+circle.remove();
+
+},600);
+
+});
+
+});
+
+// ==========================
+// Card Animation
+// ==========================
+
+const observer=new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.style.opacity="1";
+
+entry.target.style.transform="translateY(0)";
+
+}
+
+});
+
+});
+
+document.querySelectorAll(".card").forEach(card=>{
+
+card.style.opacity="0";
+
+card.style.transform="translateY(60px)";
+
+observer.observe(card);
+
+});
+
+// ==========================
+// Button Sound
+// ==========================
+
+const click=new Audio("click.mp3");
+
+document.querySelectorAll("button").forEach(btn=>{
+
+btn.addEventListener("click",()=>{
+
+click.currentTime=0;
+
+click.play();
+
+});
+
+});
+
+// ==========================
+// Header Shadow
+// ==========================
+
+window.addEventListener("scroll",()=>{
+
+const header=document.querySelector("header");
+
+if(window.scrollY>50){
+
+header.style.boxShadow="0 0 30px cyan";
+
+}else{
+
+header.style.boxShadow="none";
+
+}
+
+});
+
+// ==========================
+// Clock
+// ==========================
+
+setInterval(()=>{
+
+let now=new Date();
+
+console.log(now.toLocaleTimeString());
+
+},1000);
+
+// ==========================
+// Welcome
+// ==========================
+
+console.log("Welcome To Zrx Launcher");
+
+// ==========================
+// End
+// ==========================
+@keyframes ripple{
+0%{
+transform:translate(-50%,-50%) scale(0);
+opacity:1;
+}
+100%{
+transform:translate(-50%,-50%) scale(15);
+opacity:0;
+}
+}

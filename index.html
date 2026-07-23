@@ -2,161 +2,47 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سایت در حال ساخت است...</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap');
-
-        :root {
-            --bg: #05050a;
-            --cyan: #00f2fe;
-            --pink: #ff007f;
-            --purple: #7928ca;
-            --gold: #f59e0b;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Vazirmatn', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* پس‌زمینه رنگارنگ و متحرک */
-        .bg-glow {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: linear-gradient(135deg, var(--cyan), var(--pink));
-            filter: blur(120px);
-            opacity: 0.3;
-            animation: moveGlow 6s infinite alternate ease-in-out;
-            z-index: 1;
-        }
-
-        @keyframes moveGlow {
-            0% { transform: translate(-100px, -100px) scale(1); }
-            100% { transform: translate(100px, 100px) scale(1.3); }
-        }
-
-        .container {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            padding: 30px;
-            max-width: 450px;
-            background: rgba(13, 19, 34, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* آیکون متحرک چرخ‌دنده */
-        .gear-icon {
-            font-size: 60px;
-            display: inline-block;
-            animation: spin 4s linear infinite;
-            margin-bottom: 15px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* متن رنگارنگ و درخشان */
-        h1 {
-            font-size: 26px;
-            font-weight: 900;
-            background: linear-gradient(to right, var(--cyan), var(--pink), var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 12px;
-            animation: colorShift 5s infinite alternate;
-        }
-
-        @keyframes colorShift {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-
-        p {
-            font-size: 14px;
-            color: #94a3b8;
-            line-height: 1.8;
-            margin-bottom: 25px;
-        }
-
-        /* باکس صبوری */
-        .patience-box {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px dashed rgba(0, 242, 254, 0.3);
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 13px;
-            color: var(--cyan);
-            font-weight: bold;
-        }
-
-        /* لودینگ بار رنگی */
-        .loader-bar {
-            width: 100%;
-            height: 6px;
-            background: #1e293b;
-            border-radius: 10px;
-            margin-top: 20px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .loader-progress {
-            position: absolute;
-            width: 40%;
-            height: 100%;
-            background: linear-gradient(90deg, var(--cyan), var(--pink));
-            border-radius: 10px;
-            animation: loadingMove 2s infinite ease-in-out;
-        }
-
-        @keyframes loadingMove {
-            0% { left: -40%; }
-            100% { left: 100%; }
-        }
+        body { margin: 0; font-family: Tahoma, sans-serif; display: flex; background: #f4f7f6; height: 100vh; }
+        
+        /* سایدبار */
+        .sidebar { width: 250px; background: #fff; border-left: 1px solid #ddd; padding: 20px; }
+        
+        /* محتوای اصلی */
+        .main-content { flex: 1; padding: 20px; }
+        
+        /* کارت اصلی (هدر بازی) */
+        .hero-banner { background: #2c3e50; color: white; padding: 40px; border-radius: 15px; margin-bottom: 20px; }
+        
+        /* گرید وضعیت */
+        .stats-grid { display: flex; gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 10px; flex: 1; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
+        
+        .btn-play { background: #3498db; color: white; padding: 10px 30px; border: none; border-radius: 5px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div class="bg-glow"></div>
+    <div class="sidebar">
+        <h3>میهن کرفت</h3>
+        <ul>
+            <li>خانه</li>
+            <li>پروفایل‌ها</li>
+            <li>نسخه‌ها</li>
+        </ul>
+    </div>
 
-    <div class="container">
-        <div class="gear-icon">🛠️</div>
-        <h1>سایت در حال ساخت است...</h1>
-        <p>ما در حال خلق یک تجربه بی‌نظیر و فوق‌العاده برای شما هستیم. به زودی با قابلیت‌های شگفت‌انگیز برمی‌گردیم!</p>
-        
-        <div class="patience-box">
-            ✨ صبوری هم بد نیست، منتظر یک شاهکار باشید! ⏳
+    <div class="main-content">
+        <div class="hero-banner">
+            <h1>سلام بر تو</h1>
+            <p>آماده پرتاب به دنیای ماینکرفت؟</p>
+            <button class="btn-play">اجرای بازی</button>
         </div>
 
-        <div class="loader-bar">
-            <div class="loader-progress"></div>
+        <div class="stats-grid">
+            <div class="card">۲ <br> سرور ساخته شده</div>
+            <div class="card">۰ <br> نسخه نصب شده</div>
+            <div class="card">۱ <br> پروفایل آماده</div>
         </div>
     </div>
 

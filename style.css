@@ -827,6 +827,16 @@ border-radius:20px;
 }
 
 /* Section */
+@keyframes ripple{
+0%{
+transform:translate(-50%,-50%) scale(0);
+opacity:1;
+}
+100%{
+transform:translate(-50%,-50%) scale(15);
+opacity:0;
+}
+}
 
 section{
 

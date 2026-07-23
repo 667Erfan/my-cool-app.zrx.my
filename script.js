@@ -1,41 +1,41 @@
-/* ==========================
-   ZRX Launcher
-   script.js
-========================== */
+/* ===========================================
+   ZRX LAUNCHER
+   SCRIPT.JS
+   PART 1
+===========================================*/
 
-// Loading Screen
+/* ---------- Loading ---------- */
 
-window.addEventListener("load", () => {
+window.addEventListener("load",()=>{
 
-const loading = document.getElementById("loading");
+const loading=document.getElementById("loading");
 
-setTimeout(() => {
+setTimeout(()=>{
 
-loading.style.opacity = "0";
+loading.style.opacity="0";
 
-loading.style.pointerEvents = "none";
+loading.style.visibility="hidden";
 
-},1500);
+loading.style.pointerEvents="none";
+
+},1200);
 
 });
 
-// ==========================
-// Particles
-// ==========================
+/* ---------- Particles ---------- */
+
+if(typeof particlesJS!=="undefined"){
 
 particlesJS("particles-js",{
 
 particles:{
 
 number:{
-
 value:80,
-
 density:{
 enable:true,
-value_area:800
+value_area:900
 }
-
 },
 
 color:{
@@ -54,17 +54,17 @@ size:{
 value:3
 },
 
-move:{
-enable:true,
-speed:2
-},
-
 line_linked:{
 enable:true,
 distance:140,
 color:"#00ffff",
-opacity:.35,
+opacity:.3,
 width:1
+},
+
+move:{
+enable:true,
+speed:2
 }
 
 },
@@ -83,7 +83,9 @@ mode:"grab"
 onclick:{
 enable:true,
 mode:"push"
-}
+},
+
+resize:true
 
 },
 
@@ -99,15 +101,19 @@ particles_nb:4
 
 }
 
-}
+},
+
+retina_detect:true
 
 });
 
-// ==========================
-// Cursor
-// ==========================
+}
+
+/* ---------- Cursor ---------- */
 
 const cursor=document.getElementById("cursor");
+
+if(cursor){
 
 document.addEventListener("mousemove",(e)=>{
 
@@ -117,93 +123,313 @@ cursor.style.top=e.clientY+"px";
 
 });
 
-// ==========================
-// Progress Bar
-// ==========================
+}
+
+/* ---------- Scroll Progress ---------- */
+
+const progress=document.getElementById("bar");
 
 window.addEventListener("scroll",()=>{
 
-let winScroll=document.body.scrollTop||
+if(!progress)return;
 
-document.documentElement.scrollTop;
+const winScroll=
 
-let height=document.documentElement.scrollHeight-
+document.documentElement.scrollTop||
+
+document.body.scrollTop;
+
+const height=
+
+document.documentElement.scrollHeight-
 
 document.documentElement.clientHeight;
 
-let scrolled=(winScroll/height)*100;
+const percent=(winScroll/height)*100;
 
-document.getElementById("bar").style.width=scrolled+"%";
+progress.style.width=percent+"%";
 
 });
 
-// ==========================
-// Theme
-// ==========================
+/* ---------- Console ---------- */
 
-const theme=document.getElementById("theme");
+console.log("ZRX Launcher Loaded");
+/* ===========================================
+   ZRX LAUNCHER
+   SCRIPT.JS
+   PART 2
+===========================================*/
 
-theme.onclick=()=>{
+/* ---------- Sidebar ---------- */
 
-document.body.classList.toggle("dark");
+const menuBtn=document.getElementById("menuBtn");
+const sidebar=document.getElementById("sidebar");
+const overlay=document.getElementById("overlay");
 
-if(document.body.classList.contains("dark")){
+if(menuBtn && sidebar && overlay){
 
-localStorage.setItem("theme","light");
+menuBtn.addEventListener("click",()=>{
 
-theme.innerHTML="☀️";
+sidebar.classList.add("active");
+
+overlay.classList.add("active");
+
+document.body.style.overflow="hidden";
+
+});
+
+overlay.addEventListener("click",closeSidebar);
+
+function closeSidebar(){
+
+sidebar.classList.remove("active");
+
+overlay.classList.remove("active");
+
+document.body.style.overflow="auto";
+
+}
+
+document.addEventListener("keydown",(e)=>{
+
+if(e.key==="Escape"){
+
+closeSidebar();
+
+}
+
+});
+
+}
+
+/* ---------- Theme ---------- */
+
+const themeBtn=document.getElementById("theme");
+
+function applyTheme(theme){
+
+if(theme==="light"){
+
+document.body.classList.add("light");
+
+themeBtn.textContent="☀️";
 
 }else{
 
-localStorage.setItem("theme","dark");
+document.body.classList.remove("light");
 
-theme.innerHTML="🌙";
-
-}
-
-};
-
-if(localStorage.getItem("theme")=="light"){
-
-document.body.classList.add("dark");
-
-theme.innerHTML="☀️";
+themeBtn.textContent="🌙";
 
 }
 
-// ==========================
-// Button Ripple
-// ==========================
+}
+
+const savedTheme=localStorage.getItem("theme") || "dark";
+
+applyTheme(savedTheme);
+
+if(themeBtn){
+
+themeBtn.addEventListener("click",()=>{
+
+const newTheme=document.body.classList.contains("light")
+
+? "dark"
+
+: "light";
+
+applyTheme(newTheme);
+
+localStorage.setItem("theme",newTheme);
+
+});
+
+}
+
+/* ---------- Toast ---------- */
+
+const toast=document.getElementById("toast");
+
+function showToast(text){
+
+if(!toast)return;
+
+toast.textContent=text;
+
+toast.classList.add("show");
+
+clearTimeout(window.toastTimer);
+
+window.toastTimer=setTimeout(()=>{
+
+toast.classList.remove("show");
+
+},2500);
+
+}
+
+/* ---------- Download Button ---------- */
+
+const downloadBtn=document.getElementById("downloadBtn");
+
+if(downloadBtn){
+
+downloadBtn.addEventListener("click",()=>{
+
+showToast("📥 دانلود آغاز شد...");
+
+});
+
+}
+
+/* ---------- Language ---------- */
+
+const languageBtn=document.getElementById("language");
+
+const lang=localStorage.getItem("language") || "fa";
+
+if(languageBtn){
+
+languageBtn.textContent=lang.toUpperCase();
+
+languageBtn.addEventListener("click",()=>{
+
+const current=
+
+localStorage.getItem("language") || "fa";
+
+const next=current==="fa"
+
+? "en"
+
+: "fa";
+
+localStorage.setItem("language",next);
+
+languageBtn.textContent=next.toUpperCase();
+
+showToast(
+
+next==="fa"
+
+? "زبان فارسی فعال شد"
+
+: "English Enabled"
+
+);
+
+});
+
+}
+/* ===========================================
+   ZRX LAUNCHER
+   SCRIPT.JS
+   PART 3
+   Cards + Ripple + Slider + 3D
+===========================================*/
+
+/* ---------- Card Animation ---------- */
+
+const cards=document.querySelectorAll(".card");
+
+const observer=new IntersectionObserver((entries)=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.style.opacity="1";
+entry.target.style.transform="translateY(0)";
+entry.target.style.transition=".8s";
+
+}else{
+
+entry.target.style.opacity=".3";
+
+}
+
+});
+
+},{threshold:.25});
+
+cards.forEach(card=>{
+
+card.style.opacity="0";
+card.style.transform="translateY(80px)";
+
+observer.observe(card);
+
+});
+
+/* ---------- 3D Hover ---------- */
+
+cards.forEach(card=>{
+
+card.addEventListener("mousemove",(e)=>{
+
+const rect=card.getBoundingClientRect();
+
+const x=e.clientX-rect.left;
+
+const y=e.clientY-rect.top;
+
+const rotateY=((x/rect.width)-0.5)*18;
+
+const rotateX=((rect.height/2-y)/rect.height)*18;
+
+card.style.transform=
+
+`perspective(900px)
+rotateX(${rotateX}deg)
+rotateY(${rotateY}deg)
+scale(1.05)`;
+
+});
+
+card.addEventListener("mouseleave",()=>{
+
+card.style.transform=
+
+"perspective(900px) rotateX(0deg) rotateY(0deg) scale(1)";
+
+});
+
+});
+
+/* ---------- Ripple Effect ---------- */
 
 document.querySelectorAll("button").forEach(btn=>{
 
+btn.style.position="relative";
+btn.style.overflow="hidden";
+
 btn.addEventListener("click",(e)=>{
 
-const circle=document.createElement("span");
+const ripple=document.createElement("span");
 
-circle.style.position="absolute";
+const size=Math.max(btn.clientWidth,btn.clientHeight);
 
-circle.style.width="20px";
+ripple.style.width=size+"px";
+ripple.style.height=size+"px";
 
-circle.style.height="20px";
+ripple.style.position="absolute";
 
-circle.style.borderRadius="50%";
+ripple.style.left=e.offsetX-size/2+"px";
+ripple.style.top=e.offsetY-size/2+"px";
 
-circle.style.background="rgba(255,255,255,.5)";
+ripple.style.borderRadius="50%";
 
-circle.style.left=e.offsetX+"px";
+ripple.style.background="rgba(255,255,255,.35)";
 
-circle.style.top=e.offsetY+"px";
+ripple.style.pointerEvents="none";
 
-circle.style.transform="translate(-50%,-50%)";
+ripple.style.animation="ripple .6s linear";
 
-circle.style.animation="ripple .6s linear";
-
-btn.appendChild(circle);
+btn.appendChild(ripple);
 
 setTimeout(()=>{
 
-circle.remove();
+ripple.remove();
 
 },600);
 
@@ -211,135 +437,714 @@ circle.remove();
 
 });
 
-// ==========================
-// Card Animation
-// ==========================
+/* ---------- Slider ---------- */
 
-const observer=new IntersectionObserver(entries=>{
+const slides=document.querySelectorAll(".slide");
 
-entries.forEach(entry=>{
+let currentSlide=0;
 
-if(entry.isIntersecting){
+function showSlide(index){
 
-entry.target.style.opacity="1";
+if(slides.length===0)return;
 
-entry.target.style.transform="translateY(0)";
+slides.forEach(slide=>{
+
+slide.classList.remove("active");
+
+});
+
+slides[index].classList.add("active");
 
 }
 
-});
+showSlide(currentSlide);
 
-});
+const nextBtn=document.getElementById("nextSlide");
+const prevBtn=document.getElementById("prevSlide");
 
-document.querySelectorAll(".card").forEach(card=>{
+if(nextBtn){
 
-card.style.opacity="0";
+nextBtn.onclick=()=>{
 
-card.style.transform="translateY(60px)";
+currentSlide++;
 
-observer.observe(card);
+if(currentSlide>=slides.length){
 
-});
-
-// ==========================
-// Button Sound
-// ==========================
-
-const click=new Audio("click.mp3");
-
-document.querySelectorAll("button").forEach(btn=>{
-
-btn.addEventListener("click",()=>{
-
-click.currentTime=0;
-
-click.play();
-
-});
-
-});
-
-// ==========================
-// Header Shadow
-// ==========================
-
-window.addEventListener("scroll",()=>{
-
-const header=document.querySelector("header");
-
-if(window.scrollY>50){
-
-header.style.boxShadow="0 0 30px cyan";
-
-}else{
-
-header.style.boxShadow="none";
+currentSlide=0;
 
 }
 
-});
+showSlide(currentSlide);
 
-// ==========================
-// Clock
-// ==========================
+};
+
+}
+
+if(prevBtn){
+
+prevBtn.onclick=()=>{
+
+currentSlide--;
+
+if(currentSlide<0){
+
+currentSlide=slides.length-1;
+
+}
+
+showSlide(currentSlide);
+
+};
+
+}
+
+/* ---------- Auto Play ---------- */
 
 setInterval(()=>{
 
-let now=new Date();
+if(slides.length===0)return;
 
-console.log(now.toLocaleTimeString());
+currentSlide++;
 
-},1000);
+if(currentSlide>=slides.length){
 
-const sidebar=document.getElementById("sidebar");
-
-const menuBtn=document.getElementById("menuBtn");
-
-const overlay=document.getElementById("overlay");
-
-menuBtn.onclick=()=>{
-
-sidebar.classList.add("active");
-
-overlay.classList.add("active");
+currentSlide=0;
 
 }
 
-overlay.onclick=()=>{
+showSlide(currentSlide);
 
-sidebar.classList.remove("active");
+},5000);
 
-overlay.classList.remove("active");
+/* ---------- Touch Support ---------- */
 
-}
-// ==========================
-// Welcome
-// ==========================
+let startX=0;
 
-console.log("Welcome To Zrx Launcher");
-function goHome(){
+const slider=document.querySelector(".slider");
 
-window.location.href="home.html";
+if(slider){
 
-}
+slider.addEventListener("touchstart",(e)=>{
 
-function goDownload(){
+startX=e.touches[0].clientX;
 
-window.location.href="download.html";
+});
 
-}
+slider.addEventListener("touchend",(e)=>{
 
-function goSettings(){
+let endX=e.changedTouches[0].clientX;
 
-window.location.href="settings.html";
+if(endX<startX-50){
+
+nextBtn?.click();
 
 }
 
-function goAbout(){
+if(endX>startX+50){
 
-window.location.href="about.html";
+prevBtn?.click();
 
 }
-// ==========================
-// End
-// ==========================
+
+});
+
+}
+/* ===========================================
+   ZRX LAUNCHER
+   SCRIPT.JS
+   PART 4
+   Music + Settings + Download Counter
+===========================================*/
+
+/* ---------- Music Player ---------- */
+
+const music=document.getElementById("music");
+
+if(music){
+
+music.volume=.6;
+
+const savedVolume=localStorage.getItem("musicVolume");
+
+if(savedVolume){
+
+music.volume=parseFloat(savedVolume);
+
+}
+
+music.addEventListener("volumechange",()=>{
+
+localStorage.setItem(
+
+"musicVolume",
+
+music.volume
+
+);
+
+});
+
+}
+
+/* ---------- Settings ---------- */
+
+const settingsModal=document.getElementById("settingsModal");
+
+const saveSettings=document.getElementById("saveSettings");
+
+const languageSelect=document.getElementById("langSelect");
+
+const themeSelect=document.getElementById("themeSelect");
+
+if(saveSettings){
+
+const savedLang=
+
+localStorage.getItem("language")||"fa";
+
+const savedTheme=
+
+localStorage.getItem("theme")||"dark";
+
+languageSelect.value=savedLang;
+
+themeSelect.value=savedTheme;
+
+saveSettings.addEventListener("click",()=>{
+
+localStorage.setItem(
+
+"language",
+
+languageSelect.value
+
+);
+
+localStorage.setItem(
+
+"theme",
+
+themeSelect.value
+
+);
+
+applyTheme(themeSelect.value);
+
+settingsModal.style.display="none";
+
+showToast("✅ تنظیمات ذخیره شد");
+
+});
+
+}
+
+/* ---------- Download Counter ---------- */
+
+const downloadCount=
+
+document.getElementById("downloadCount");
+
+async function loadDownloads(){
+
+try{
+
+const response=
+
+await fetch("downloads.json");
+
+const data=
+
+await response.json();
+
+if(downloadCount){
+
+downloadCount.textContent=
+
+data.downloads.toLocaleString();
+
+}
+
+}catch(error){
+
+console.log(error);
+
+}
+
+}
+
+loadDownloads();
+
+/* ---------- Language System ---------- */
+
+const dictionary={
+
+fa:{
+
+welcome:"به Zrx Launcher خوش آمدید",
+
+download:"دانلود آغاز شد..."
+
+},
+
+en:{
+
+welcome:"Welcome To Zrx Launcher",
+
+download:"Download Started..."
+
+}
+
+};
+
+function getLanguage(){
+
+return localStorage.getItem("language")||"fa";
+
+}
+
+/* ---------- Download Button ---------- */
+
+if(downloadBtn){
+
+downloadBtn.addEventListener("click",()=>{
+
+const lang=getLanguage();
+
+showToast(
+
+dictionary[lang].download
+
+);
+
+});
+
+}
+
+/* ---------- Close Settings ---------- */
+
+window.addEventListener("click",(e)=>{
+
+if(e.target===settingsModal){
+
+settingsModal.style.display="none";
+
+}
+
+});
+
+/* ---------- Keyboard Shortcut ---------- */
+
+document.addEventListener("keydown",(e)=>{
+
+if(e.ctrlKey&&e.key==="m"){
+
+if(music){
+
+music.paused
+
+? music.play()
+
+: music.pause();
+
+}
+
+}
+
+});
+
+/* ---------- Welcome ---------- */
+
+console.log(
+
+"🚀 ZRX Launcher Ready"
+
+);
+/* ===========================================
+   ZRX LAUNCHER
+   SCRIPT.JS
+   PART 5
+   PWA + Online/Offline + Notifications
+===========================================*/
+
+/* ---------- Service Worker ---------- */
+
+if("serviceWorker" in navigator){
+
+window.addEventListener("load",()=>{
+
+navigator.serviceWorker
+.register("sw.js")
+.then(()=>{
+
+console.log("✅ Service Worker Registered");
+
+})
+.catch((err)=>{
+
+console.error(err);
+
+});
+
+});
+
+}
+
+/* ---------- Install PWA ---------- */
+
+let deferredPrompt=null;
+
+window.addEventListener(
+
+"beforeinstallprompt",
+
+(e)=>{
+
+e.preventDefault();
+
+deferredPrompt=e;
+
+showToast("📱 برنامه قابل نصب است");
+
+});
+
+async function installApp(){
+
+if(!deferredPrompt){
+
+return;
+
+}
+
+deferredPrompt.prompt();
+
+await deferredPrompt.userChoice;
+
+deferredPrompt=null;
+
+}
+
+/* ---------- Online ---------- */
+
+window.addEventListener("online",()=>{
+
+showToast("🌐 اینترنت وصل شد");
+
+});
+
+/* ---------- Offline ---------- */
+
+window.addEventListener("offline",()=>{
+
+showToast("📡 حالت آفلاین فعال شد");
+
+});
+
+/* ---------- Network Status ---------- */
+
+function updateNetworkStatus(){
+
+if(navigator.onLine){
+
+console.log("ONLINE");
+
+}else{
+
+console.log("OFFLINE");
+
+}
+
+}
+
+updateNetworkStatus();
+
+/* ---------- Visibility ---------- */
+
+document.addEventListener(
+
+"visibilitychange",
+
+()=>{
+
+if(document.hidden){
+
+console.log("Hidden");
+
+}else{
+
+console.log("Visible");
+
+}
+
+});
+
+/* ---------- Notification ---------- */
+
+async function requestNotification(){
+
+if(!("Notification" in window)){
+
+return;
+
+}
+
+if(Notification.permission==="default"){
+
+await Notification.requestPermission();
+
+}
+
+}
+
+requestNotification();
+
+function sendNotification(title,body){
+
+if(Notification.permission==="granted"){
+
+new Notification(title,{
+
+body:body,
+
+icon:"icon-192.png"
+
+});
+
+}
+
+}
+
+/* ---------- Install Button ---------- */
+
+const installButton=
+
+document.getElementById("installBtn");
+
+if(installButton){
+
+installButton.addEventListener(
+
+"click",
+
+()=>{
+
+installApp();
+
+});
+
+}
+
+/* ---------- Auto Notification ---------- */
+
+setTimeout(()=>{
+
+if(Notification.permission==="granted"){
+
+sendNotification(
+
+"ZRX Launcher",
+
+"به لانچر خوش آمدید 🚀"
+
+);
+
+}
+
+},5000);
+
+/* ---------- Save Version ---------- */
+
+localStorage.setItem(
+
+"launcherVersion",
+
+"1.0"
+
+);
+
+/* ---------- End Of Part 5 ---------- */
+
+console.log("PART 5 Loaded");
+/* ===========================================
+   ZRX LAUNCHER
+   SCRIPT.JS
+   PART 6
+   FINAL
+===========================================*/
+
+/* ---------- Performance ---------- */
+
+function optimizePerformance(){
+
+const images=document.querySelectorAll("img");
+
+images.forEach(img=>{
+
+img.loading="lazy";
+
+img.decoding="async";
+
+});
+
+}
+
+optimizePerformance();
+
+/* ---------- FPS Counter ---------- */
+
+let fps=0;
+
+let lastTime=performance.now();
+
+function updateFPS(){
+
+const now=performance.now();
+
+fps=Math.round(1000/(now-lastTime));
+
+lastTime=now;
+
+requestAnimationFrame(updateFPS);
+
+}
+
+requestAnimationFrame(updateFPS);
+
+/* ---------- Card Glow ---------- */
+
+document.querySelectorAll(".card").forEach(card=>{
+
+card.addEventListener("mouseenter",()=>{
+
+card.style.boxShadow=
+
+"0 0 50px cyan";
+
+});
+
+card.addEventListener("mouseleave",()=>{
+
+card.style.boxShadow="";
+
+});
+
+});
+
+/* ---------- Keyboard Shortcuts ---------- */
+
+document.addEventListener("keydown",(e)=>{
+
+if(e.key==="F1"){
+
+e.preventDefault();
+
+showToast("⌨️ میانبر فعال شد");
+
+}
+
+if(e.ctrlKey && e.key==="d"){
+
+e.preventDefault();
+
+downloadBtn?.click();
+
+}
+
+});
+
+/* ---------- Welcome Animation ---------- */
+
+setTimeout(()=>{
+
+showToast("🚀 به ZRX Launcher خوش آمدید");
+
+},1500);
+
+/* ---------- Memory Cleaner ---------- */
+
+setInterval(()=>{
+
+if(window.gc){
+
+try{
+
+window.gc();
+
+}catch(e){}
+
+}
+
+},60000);
+
+/* ---------- Console Style ---------- */
+
+console.log(
+
+"%cZRX Launcher",
+
+"color:cyan;font-size:26px;font-weight:bold;"
+
+);
+
+console.log(
+
+"%cCreated with HTML CSS JavaScript",
+
+"color:white;font-size:15px;"
+
+);
+
+/* ---------- Footer Year ---------- */
+
+const year=document.getElementById("year");
+
+if(year){
+
+year.textContent=new Date().getFullYear();
+
+}
+
+/* ---------- Smooth Scroll ---------- */
+
+document.querySelectorAll('a[href^="#"]').forEach(link=>{
+
+link.addEventListener("click",(e)=>{
+
+e.preventDefault();
+
+const target=document.querySelector(
+
+link.getAttribute("href")
+
+);
+
+if(target){
+
+target.scrollIntoView({
+
+behavior:"smooth"
+
+});
+
+}
+
+});
+
+});
+
+/* ---------- Resize ---------- */
+
+window.addEventListener("resize",()=>{
+
+console.log(
+
+window.innerWidth,
+
+window.innerHeight
+
+);
+
+});
+
+/* ---------- End ---------- */
+
+console.log("✅ ZRX Launcher Ready");

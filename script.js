@@ -317,7 +317,29 @@ overlay.classList.remove("active");
 // ==========================
 
 console.log("Welcome To Zrx Launcher");
+function goHome(){
 
+window.location.href="home.html";
+
+}
+
+function goDownload(){
+
+window.location.href="download.html";
+
+}
+
+function goSettings(){
+
+window.location.href="settings.html";
+
+}
+
+function goAbout(){
+
+window.location.href="about.html";
+
+}
 // ==========================
 // End
 // ==========================

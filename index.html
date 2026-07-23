@@ -2,78 +2,168 @@
 <html lang="fa" dir="rtl">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Zrx Launcher</title>
+    <title>Zrx Launcher</title>
 
-<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700&display=swap" rel="stylesheet">
 
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
+    <style>
+        /* استایل‌های جدید برای بخش تنظیمات */
+        .settings-modal {
+            display: none; /* در ابتدا مخفی است */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* پس‌زمینه تاریک پشت پنجره */
+            backdrop-filter: blur(5px); /* مات کردن پس‌زمینه */
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .settings-content {
+            background: rgba(255, 255, 255, 0.1); /* استایل شیشه‌ای */
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 20px;
+            width: 350px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            color: white;
+            text-align: right;
+        }
+
+        .settings-content h3 {
+            margin-top: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .setting-item {
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .setting-item select, .setting-item input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .close-settings {
+            background: #ff4b2b;
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        .close-settings:hover {
+            background: #ff416c;
+        }
+    </style>
 </head>
 
 <body>
 
-<div id="loading">
+    <div id="loading">
+        <div class="loader"></div>
+        <h2 id="loading-text">در حال بارگذاری...</h2>
+    </div>
 
-<div class="loader"></div>
+    <div id="particles-js"></div>
 
-<h2>در حال بارگذاری...</h2>
+    <header>
+        <h1>Zrx Launcher</h1>
+        <button id="theme">🌙</button>    </header>
 
-</div>
+    <nav>
+        <button class="btn active">🏠 خانه</button>        <button class="btn">� دانلود</button>
+        <!-- اضافه کردن ID به دکمه تنظیمات برای کارکردن جاوااسکریپت -->
+        <button class="btn" id="settingsBtn">⚙ تنظیمات</button>
+        <button class="btn">ℹ درباره</button>
+    </nav>
 
-<div id="particles-js"></div>
+    <section class="glass">
+        <h2>به Zrx Launcher خوش آمدید</h2>
+        <p>یک لانچر حرفه‌ای برای Minecraft Java</p>
+        <button class="download">دانلود لانچر</button>
+    </section>
 
-<header>
+    <!-- پنجره تنظیمات (Modal) -->
+    <div id="settingsModal" class="settings-modal">
+        <div class="settings-content">
+            <h3>⚙ تنظیمات</h3>
+            
+            <div class="setting-item">
+                <span>زبان:</span>
+                <select id="langSelect">
+                    <option value="fa">فارسی</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
 
-<h1>Zrx Launcher</h1>
+            <div class="setting-item">
+                <span>مقدار رم (GB):</span>
+                <input type="number" id="ramInput" value="4" min="1" max="32">
+            </div>
 
-<button id="theme">🌙</button>
+            <div class="setting-item">
+                <span>حالت آفلاین:</span>
+                <input type="checkbox" id="offlineMode">
+            </div>
 
-</header>
+            <button class="close-settings" onclick="toggleSettings()">بستن و ذخیره</button>
+        </div>
+    </div>
 
-<nav>
+    <div class="progress">
+        <div id="bar"></div>
+    </div>
 
-<button class="btn active">🏠 خانه</button>
+    <div id="cursor"></div>
 
-<button class="btn">📥 دانلود</button>
+    <script>
+        // کد برای باز و بسته کردن پنجره تنظیمات
+        const settingsBtn = document.getElementById('settingsBtn');
+        const settingsModal = document.getElementById('settingsModal');
 
-<button class="btn">⚙ تنظیمات</button>
+        settingsBtn.onclick = function() {
+            settingsModal.style.display = 'flex';
+        }
 
-<button class="btn">ℹ درباره</button>
+        function toggleSettings() {
+            settingsModal.style.display = 'none';
+            // اینجا می‌توانید کدهای ذخیره سازی (localStorage) را اضافه کنید
+            console.log("Settings saved!");
+        }
 
-</nav>
+        // بستن پنجره اگر کاربر بیرون از کادر کلیک کرد
+        window.onclick = function(event) {
+            if (event.target == settingsModal) {
+                toggleSettings();
+            }
+        }
+    </script>
 
-<section class="glass">
-
-<h2>به Zrx Launcher خوش آمدید</h2>
-
-<p>
-
-یک لانچر حرفه‌ای برای Minecraft Java
-
-</p>
-
-<button class="download">
-
-دانلود لانچر
-
-</button>
-
-</section>
-
-<div class="progress">
-
-<div id="bar"></div>
-
-</div>
-
-<div id="cursor"></div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
 

@@ -1,0 +1,837 @@
+/* ===========================
+   ZRX LAUNCHER STYLE.CSS
+   PART 1
+=========================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Vazirmatn",sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+
+background:#050816;
+overflow-x:hidden;
+color:white;
+
+}
+
+/* Particles */
+
+#particles-js{
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+z-index:-5;
+
+}
+
+/* Loading */
+
+#loading{
+
+position:fixed;
+
+width:100%;
+
+height:100%;
+
+background:#050816;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+z-index:99999;
+
+transition:1s;
+
+}
+
+.loader{
+
+width:90px;
+
+height:90px;
+
+border-radius:50%;
+
+border:8px solid rgba(255,255,255,.1);
+
+border-top:8px solid cyan;
+
+animation:spin 1s linear infinite;
+
+margin-bottom:25px;
+
+}
+
+@keyframes spin{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+/* Header */
+
+header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:25px 50px;
+
+backdrop-filter:blur(25px);
+
+background:rgba(255,255,255,.05);
+
+position:sticky;
+
+top:0;
+
+z-index:100;
+
+}
+
+header h1{
+
+font-size:35px;
+
+font-weight:bold;
+
+color:#00ffff;
+
+text-shadow:0 0 25px cyan;
+
+}
+
+/* Theme Button */
+
+#theme{
+
+width:55px;
+
+height:55px;
+
+border:none;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.08);
+
+color:white;
+
+cursor:pointer;
+
+font-size:22px;
+
+transition:.4s;
+
+backdrop-filter:blur(20px);
+
+}
+
+#theme:hover{
+
+transform:rotate(180deg);
+
+background:cyan;
+
+color:black;
+
+box-shadow:0 0 30px cyan;
+
+}
+
+/* Menu */
+
+nav{
+
+display:flex;
+
+justify-content:center;
+
+gap:25px;
+
+padding:35px;
+
+flex-wrap:wrap;
+
+}
+
+.btn{
+
+padding:18px 40px;
+
+border:none;
+
+border-radius:18px;
+
+font-size:18px;
+
+cursor:pointer;
+
+color:white;
+
+background:linear-gradient(145deg,#101827,#1f2a40);
+
+box-shadow:
+
+0 10px 30px rgba(0,255,255,.15),
+
+inset 0 1px 0 rgba(255,255,255,.08);
+
+transition:.35s;
+
+}
+
+.btn:hover{
+
+transform:translateY(-8px) scale(1.05);
+
+box-shadow:
+
+0 0 35px cyan,
+
+0 0 80px rgba(0,255,255,.4);
+
+}
+
+.btn.active{
+
+background:cyan;
+
+color:black;
+
+font-weight:bold;
+
+}
+
+/* Glass */
+
+.glass{
+
+width:90%;
+
+max-width:950px;
+
+margin:40px auto;
+
+padding:50px;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(25px);
+
+border-radius:35px;
+
+border:1px solid rgba(255,255,255,.15);
+
+box-shadow:
+
+0 20px 60px rgba(0,0,0,.5);
+
+text-align:center;
+
+}
+
+.glass h2{
+
+font-size:40px;
+
+margin-bottom:20px;
+
+}
+
+.glass p{
+
+font-size:18px;
+
+opacity:.85;
+
+line-height:2;
+
+}
+
+/* Download Button */
+
+.download{
+
+margin-top:35px;
+
+padding:18px 60px;
+
+font-size:22px;
+
+border:none;
+
+border-radius:18px;
+
+cursor:pointer;
+
+background:linear-gradient(45deg,#00ffff,#0066ff);
+
+color:white;
+
+transition:.4s;
+
+}
+
+.download:hover{
+
+transform:scale(1.08);
+
+box-shadow:
+
+0 0 40px cyan,
+
+0 0 90px #0099ff;
+
+}
+
+/* Progress */
+
+.progress{
+
+width:90%;
+
+height:15px;
+
+margin:60px auto;
+
+border-radius:20px;
+
+overflow:hidden;
+
+background:rgba(255,255,255,.08);
+
+}
+
+#bar{
+
+height:100%;
+
+width:0%;
+
+background:linear-gradient(90deg,
+
+cyan,
+
+#0099ff,
+
+cyan);
+
+transition:.3s;
+
+}
+
+/* Cursor */
+
+#cursor{
+
+position:fixed;
+
+width:22px;
+
+height:22px;
+
+border-radius:50%;
+
+background:cyan;
+
+pointer-events:none;
+
+mix-blend-mode:screen;
+
+box-shadow:
+
+0 0 20px cyan,
+
+0 0 60px cyan;
+
+transform:translate(-50%,-50%);
+
+z-index:999999;
+
+}
+
+/* Cards */
+
+.card{
+
+margin:35px auto;
+
+padding:30px;
+
+width:90%;
+
+max-width:800px;
+
+border-radius:25px;
+
+background:rgba(255,255,255,.06);
+
+backdrop-filter:blur(18px);
+
+transition:.35s;
+
+}
+
+.card:hover{
+
+transform:translateY(-10px);
+
+box-shadow:0 0 40px cyan;
+
+  }
+/* ===========================
+   ZRX STYLE.CSS
+   PART 2
+===========================*/
+
+/* Footer */
+
+footer{
+margin-top:80px;
+padding:40px;
+text-align:center;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(20px);
+font-size:18px;
+opacity:.8;
+}
+
+/* Floating Animation */
+
+@keyframes floating{
+
+0%{
+transform:translateY(0px);
+}
+
+50%{
+transform:translateY(-12px);
+}
+
+100%{
+transform:translateY(0px);
+}
+
+}
+
+.glass{
+
+animation:floating 5s ease-in-out infinite;
+
+}
+
+/* Fade */
+
+@keyframes fadeUp{
+
+0%{
+
+opacity:0;
+
+transform:translateY(50px);
+
+}
+
+100%{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+.card{
+
+animation:fadeUp .8s ease;
+
+}
+
+/* Glow */
+
+@keyframes glow{
+
+0%{
+
+box-shadow:0 0 20px cyan;
+
+}
+
+50%{
+
+box-shadow:0 0 60px cyan;
+
+}
+
+100%{
+
+box-shadow:0 0 20px cyan;
+
+}
+
+}
+
+.download{
+
+animation:glow 3s infinite;
+
+}
+
+/* Gradient */
+
+body{
+
+background:
+
+linear-gradient(-45deg,
+
+#020617,
+
+#09111f,
+
+#071a33,
+
+#050816);
+
+background-size:400% 400%;
+
+animation:bgmove 20s infinite;
+
+}
+
+@keyframes bgmove{
+
+0%{
+
+background-position:0 50%;
+
+}
+
+50%{
+
+background-position:100% 50%;
+
+}
+
+100%{
+
+background-position:0 50%;
+
+}
+
+}
+
+/* Card Hover */
+
+.card:hover{
+
+transform:translateY(-15px) scale(1.03);
+
+}
+
+/* Neon Border */
+
+.card::before{
+
+content:"";
+
+position:absolute;
+
+inset:-2px;
+
+border-radius:25px;
+
+padding:2px;
+
+background:linear-gradient(
+
+45deg,
+
+cyan,
+
+blue,
+
+cyan
+
+);
+
+-webkit-mask:
+
+linear-gradient(#fff 0 0) content-box,
+
+linear-gradient(#fff 0 0);
+
+-webkit-mask-composite:xor;
+
+mask-composite:exclude;
+
+opacity:.4;
+
+}
+
+/* Buttons */
+
+button{
+
+transition:.35s;
+
+}
+
+button:active{
+
+transform:scale(.92);
+
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+
+width:10px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+background:cyan;
+
+border-radius:30px;
+
+}
+
+::-webkit-scrollbar-track{
+
+background:#050816;
+
+}
+
+/* Selection */
+
+::selection{
+
+background:cyan;
+
+color:black;
+
+}
+
+/* Dark Theme */
+
+.dark{
+
+background:#ffffff;
+
+color:#111;
+
+}
+
+.dark header{
+
+background:rgba(255,255,255,.7);
+
+}
+
+.dark .glass{
+
+background:rgba(255,255,255,.6);
+
+color:#111;
+
+}
+
+.dark .btn{
+
+background:white;
+
+color:black;
+
+}
+
+.dark footer{
+
+background:#eeeeee;
+
+color:black;
+
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+
+header{
+
+padding:20px;
+
+}
+
+header h1{
+
+font-size:28px;
+
+}
+
+.glass{
+
+padding:35px;
+
+}
+
+.glass h2{
+
+font-size:28px;
+
+}
+
+.download{
+
+width:100%;
+
+}
+
+}
+
+@media(max-width:650px){
+
+nav{
+
+flex-direction:column;
+
+align-items:center;
+
+}
+
+.btn{
+
+width:90%;
+
+}
+
+.glass{
+
+width:95%;
+
+}
+
+header{
+
+flex-direction:column;
+
+gap:15px;
+
+}
+
+}
+
+/* Shine Effect */
+
+.download::after{
+
+content:"";
+
+position:absolute;
+
+top:-50%;
+
+left:-100%;
+
+width:60px;
+
+height:200%;
+
+background:rgba(255,255,255,.5);
+
+transform:rotate(25deg);
+
+transition:.7s;
+
+}
+
+.download:hover::after{
+
+left:130%;
+
+}
+
+/* Pulse */
+
+@keyframes pulse{
+
+0%{
+
+transform:scale(1);
+
+}
+
+50%{
+
+transform:scale(1.06);
+
+}
+
+100%{
+
+transform:scale(1);
+
+}
+
+}
+
+.btn.active{
+
+animation:pulse 2s infinite;
+
+}
+
+/* Image */
+
+img{
+
+max-width:100%;
+
+display:block;
+
+border-radius:20px;
+
+}
+
+/* Section */
+
+section{
+
+padding:20px;
+
+}
+
+/* End */

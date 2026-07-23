@@ -2,94 +2,54 @@
 <html lang="fa" dir="rtl">
 <head>
     <style>
-        .home-container {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: #0f172a;
-            padding: 30px;
-            border-radius: 20px;
-            color: white;
-            width: 800px;
-        }
+        /* استایل‌های قبلی ثابت است */
+        body { background: #0f172a; font-family: Tahoma; color: white; }
+        .hero-section { background: #1e293b; padding: 30px; border-radius: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .play-button { background: #3b82f6; padding: 15px 40px; border: none; border-radius: 12px; color: white; cursor: pointer; }
+        .settings-button { background: #475569; padding: 10px 20px; border: none; border-radius: 8px; color: white; cursor: pointer; margin-top: 10px; }
 
-        .hero-section {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid #334155;
-            display: flex;
-            justify-content: space-between; /* متن سمت راست، دکمه‌ها سمت چپ */
-            align-items: center;
-            margin-bottom: 25px;
-        }
-
-        /* کانتینر دکمه‌ها در سمت چپ */
-        .actions-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .play-button {
-            background: linear-gradient(90deg, #3b82f6, #2563eb);
-            color: white;
-            padding: 15px 40px;
-            border: none;
-            border-radius: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .secondary-button {
-            background: #334155;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-
-        .play-button:hover { background: #2563eb; transform: scale(1.02); }
-
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        .stat-card {
-            background: #1e293b;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            border: 1px solid #334155;
-        }
+        /* استایل پنجره تنظیمات (Modal) */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; }
+        .modal-content { background: #1e293b; padding: 30px; border-radius: 20px; width: 400px; }
+        .close-btn { cursor: pointer; color: red; float: left; }
     </style>
 </head>
 <body>
 
-<div class="home-container">
-    <div class="hero-section">
-        <!-- بخش متن (راست) -->
-        <div class="welcome-text">
-            <h2>سلام HH_amazig</h2>
-            <p>آماده پرتاب به دنیای ماینکرفت؟</p>
-        </div>
-
-        <!-- بخش دکمه‌ها (چپ) -->
-        <div class="actions-container">
-            <button class="play-button">اجرای بازی</button>
-            <button class="secondary-button">تنظیمات لانچر</button>
-        </div>
+<div class="hero-section">
+    <div>
+        <h2>سلام HH_amazig</h2>
+        <p>آماده پرتاب به دنیای ماینکرفت؟</p>
     </div>
-
-    <div class="stats-row">
-        <div class="stat-card">2 <br> <small>سرور ساخته شده</small></div>
-        <div class="stat-card">0 <br> <small>نسخه نصب شده</small></div>
-        <div class="stat-card">1 <br> <small>پروفایل آماده</small></div>
+    <div style="display: flex; flex-direction: column;">
+        <button class="play-button">اجرای بازی</button>
+        <button class="settings-button" onclick="openSettings()">تنظیمات لانچر</button>
     </div>
 </div>
+
+<!-- پنجره تنظیمات -->
+<div id="settingsModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeSettings()">بستن</span>
+        <h3>تنظیمات لانچر</h3>
+        <hr>
+        <label>مقدار رم اختصاصی (GB):</label>
+        <input type="number" value="4" style="width: 100%; margin: 10px 0;">
+        
+        <label>انتخاب زبان:</label>
+        <select style="width: 100%; margin: 10px 0;">
+            <option>فارسی</option>
+            <option>English</option>
+        </select>
+        
+        <button class="play-button" style="width: 100%; margin-top: 20px;">ذخیره تغییرات</button>
+    </div>
+</div>
+
+<script>
+    function openSettings() { document.getElementById('settingsModal').style.display = 'flex'; }
+    function closeSettings() { document.getElementById('settingsModal').style.display = 'none'; }
+</script>
 
 </body>
 </html>

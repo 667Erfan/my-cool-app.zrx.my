@@ -2,197 +2,544 @@
 <html lang="fa" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Zrx Launcher</title>
+<meta charset="UTF-8">
 
-    <link rel="stylesheet" href="style.css">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700&display=swap" rel="stylesheet">
+<title>Zrx Launcher</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<meta name="theme-color"
+content="#00ffff">
 
-    <style>
-        /* استایل‌های جدید برای بخش تنظیمات */
-        .settings-modal {
-            display: none; /* در ابتدا مخفی است */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6); /* پس‌زمینه تاریک پشت پنجره */
-            backdrop-filter: blur(5px); /* مات کردن پس‌زمینه */
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
+<link rel="manifest"
+href="manifest.json">
 
-        .settings-content {
-            background: rgba(255, 255, 255, 0.1); /* استایل شیشه‌ای */
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 30px;
-            border-radius: 20px;
-            width: 350px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            color: white;
-            text-align: right;
-        }
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
 
-        .settings-content h3 {
-            margin-top: 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            padding-bottom: 10px;
-        }
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
 
-        .setting-item {
-            margin: 20px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap"
+rel="stylesheet">
 
-        .setting-item select, .setting-item input {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 5px;
-            border-radius: 5px;
-            outline: none;
-        }
+<link rel="stylesheet"
+href="style.css">
 
-        .close-settings {
-            background: #ff4b2b;
-            border: none;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 15px;
-            transition: 0.3s;
-        }
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
-        .close-settings:hover {
-            background: #ff416c;
-        }
-    </style>
 </head>
 
 <body>
 
-    <div id="loading">
-        <div class="loader"></div>
-        <h2 id="loading-text">در حال بارگذاری...</h2>
-    </div>
+<!-- Loading -->
 
-    <div id="particles-js"></div>
+<div id="loading">
 
-    <header>
-        <h1>Zrx Launcher</h1>
-        <button id="theme">🌙</button>    </header>
+<div class="loader"></div>
 
-    <nav>
-        <button class="btn active">🏠 خانه</button>        <button class="btn">� دانلود</button>
-        <!-- اضافه کردن ID به دکمه تنظیمات برای کارکردن جاوااسکریپت -->
-        <button class="btn" id="settingsBtn">⚙ تنظیمات</button>
-        <button class="btn">ℹ درباره</button>
-    </nav>
+<h2>
 
-    <section class="glass">
-        <h2>به Zrx Launcher خوش آمدید</h2>
-        <p>یک لانچر حرفه‌ای برای Minecraft Java</p>
-        <button class="download">دانلود لانچر</button>
-    </section>
+درحال بارگذاری...
 
-    <!-- پنجره تنظیمات (Modal) -->
-    <div id="settingsModal" class="settings-modal">
-        <div class="settings-content">
-            <h3>⚙ تنظیمات</h3>
-            
-            <div class="setting-item">
-                <span>زبان:</span>
-                <select id="langSelect">
-                    <option value="fa">فارسی</option>
-                    <option value="en">English</option>
-                </select>
-            </div>
+</h2>
 
-            <div class="setting-item">
-                <span>مقدار رم (GB):</span>
-                <input type="number" id="ramInput" value="4" min="1" max="32">
-            </div>
+</div>
 
-            <div class="setting-item">
-                <span>حالت آفلاین:</span>
-                <input type="checkbox" id="offlineMode">
-            </div>
+<!-- Particles -->
 
-            <button class="close-settings" onclick="toggleSettings()">بستن و ذخیره</button>
-        </div>
-    </div>
+<div id="particles-js"></div>
 
-    <div class="progress">
-        <div id="bar"></div>
-    </div>
+<!-- Blur -->
 
-    <div id="cursor"></div>
+<div class="bg-blur"></div>
 
-    <script>
-        // کد برای باز و بسته کردن پنجره تنظیمات
-        const settingsBtn = document.getElementById('settingsBtn');
-        const settingsModal = document.getElementById('settingsModal');
+<!-- Sidebar -->
 
-        settingsBtn.onclick = function() {
-            settingsModal.style.display = 'flex';
-        }
+<div id="overlay"></div>
 
-        function toggleSettings() {
-            settingsModal.style.display = 'none';
-            // اینجا می‌توانید کدهای ذخیره سازی (localStorage) را اضافه کنید
-            console.log("Settings saved!");
-        }
+<aside id="sidebar">
 
-        // بستن پنجره اگر کاربر بیرون از کادر کلیک کرد
-        window.onclick = function(event) {
-            if (event.target == settingsModal) {
-                toggleSettings();
-            }
-        }
-    </script>
+<div class="logo">
 
-    <script src="script.js"></script>
+<h2>ZRX</h2>
+
+</div>
+
+<nav>
+
+<a href="index.html">
+
+🏠 خانه
+
+</a>
+
+<a href="download.html">
+
+📥 دانلود
+
+</a>
+
+<a href="settings.html">
+
+⚙ تنظیمات
+
+</a>
+
+<a href="about.html">
+
+ℹ درباره
+
+</a>
+
+</nav>
+
+</aside>
+
+<!-- Header -->
+
+<header>
+
+<button id="menuBtn">
+
+☰
+
+</button>
+
+<h1>
+
+Zrx Launcher
+
+</h1>
+
+<div class="header-buttons">
+
+<button id="theme">
+
+🌙
+
+</button>
+
+<button id="language">
+
+FA
+
+</button>
+
+</div>
+
+</header>
+
+<!-- Hero -->
+
+<section class="hero">
+
+<div class="glass">
+
+<h2>
+
+به Zrx Launcher خوش آمدید
+
+</h2>
+
+<p>
+
+نسل جدید لانچر Minecraft Java
+
+برای اندروید
+
+</p>
+
+<button
+class="download">
+
+دانلود لانچر
+
+</button>
+
+</div>
+
+</section>
+<!-- Features -->
+
+<section class="cards">
+
+<div class="card">
+
+<h3>🚀 سرعت بالا</h3>
+
+<p>
+
+اجرای سریع Minecraft Java
+
+روی اندروید
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>🎮 سازگار</h3>
+
+<p>
+
+پشتیبانی از Forge
+
+Fabric
+
+OptiFine
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>⚡ عملکرد</h3>
+
+<p>
+
+بهینه شده برای
+
+گوشی و تبلت
+
+</p>
+
+</div>
+
+</section>
+
+<!-- Download Counter -->
+
+<section class="counter glass">
+
+<h2>
+
+📈 تعداد دانلود
+
+</h2>
+
+<h1 id="downloadCount">
+
+0
+
+</h1>
+
+<button id="downloadBtn"
+
+class="download">
+
+دانلود آخرین نسخه
+
+</button>
+
+</section>
+
+<!-- Image Slider -->
+
+<section class="slider">
+
+<div class="slides">
+
+<img src="assets/1.jpg"
+
+class="slide active">
+
+<img src="assets/2.jpg"
+
+class="slide">
+
+<img src="assets/3.jpg"
+
+class="slide">
+
+</div>
+
+<div class="slider-buttons">
+
+<button id="prevSlide">
+
+◀
+
+</button>
+
+<button id="nextSlide">
+
+▶
+
+</button>
+
+</div>
+
+</section>
+
+<!-- Music Player -->
+
+<section class="glass player">
+
+<h2>
+
+🎵 موزیک
+
+</h2>
+
+<audio id="music"
+
+controls>
+
+<source src="assets/music.mp3"
+
+type="audio/mpeg">
+
+</audio>
+
+</section>
+
+<!-- Toast -->
+
+<div id="toast">
+
+دانلود شروع شد...
+
+</div>
+
+<!-- Progress -->
+
+<div class="progress">
+
+<div id="bar"></div>
+
+</div>
+
+<!-- Mouse Cursor -->
+
+<div id="cursor"></div>
+
+<!-- Settings -->
+
+<div id="settingsModal"
+
+class="settings-modal">
+
+<div class="settings-content">
+
+<h2>
+
+⚙ تنظیمات
+
+</h2>
+
+<label>
+
+زبان
+
+</label>
+
+<select id="langSelect">
+
+<option value="fa">
+
+فارسی
+
+</option>
+
+<option value="en">
+
+English
+
+</option>
+
+</select>
+
+<label>
+
+تم
+
+</label>
+
+<select id="themeSelect">
+
+<option value="dark">
+
+Dark
+
+</option>
+
+<option value="light">
+
+Light
+
+</option>
+
+</select>
+
+<button id="saveSettings">
+
+ذخیره
+
+</button>
+
+</div>
+
+</div>
+
+<footer>
+
+<p>
+
+© 2026 Zrx Launcher
+
+</p>
+
+</footer>
+<!-- Scripts -->
+
+<script src="script.js"></script>
+
+<script>
+/* ثبت Service Worker */
+
+if ("serviceWorker" in navigator) {
+
+window.addEventListener("load", () => {
+
+navigator.serviceWorker.register("sw.js")
+
+.then(() => {
+
+console.log("Service Worker Ready");
+
+})
+
+.catch(err => {
+
+console.log(err);
+
+});
+
+});
+
+}
+
+/* PWA نصب */
+
+let deferredPrompt;
+
+window.addEventListener("beforeinstallprompt",(e)=>{
+
+e.preventDefault();
+
+deferredPrompt=e;
+
+});
+
+/* تنظیمات */
+
+const settingsModal=document.getElementById("settingsModal");
+
+const saveSettings=document.getElementById("saveSettings");
+
+const themeBtn=document.getElementById("theme");
+
+const langBtn=document.getElementById("language");
+
+themeBtn.onclick=()=>{
+
+settingsModal.style.display="flex";
+
+}
+
+saveSettings.onclick=()=>{
+
+settingsModal.style.display="none";
+
+localStorage.setItem(
+
+"theme",
+
+document.getElementById("themeSelect").value
+
+);
+
+localStorage.setItem(
+
+"lang",
+
+document.getElementById("langSelect").value
+
+);
+
+showToast("تنظیمات ذخیره شد");
+
+};
+
+window.onclick=(e)=>{
+
+if(e.target==settingsModal){
+
+settingsModal.style.display="none";
+
+}
+
+};
+
+/* Toast */
+
+function showToast(text){
+
+const toast=document.getElementById("toast");
+
+toast.innerHTML=text;
+
+toast.classList.add("show");
+
+setTimeout(()=>{
+
+toast.classList.remove("show");
+
+},2500);
+
+}
+
+/* دانلود */
+
+document.getElementById("downloadBtn")
+
+.onclick=()=>{
+
+showToast("دانلود آغاز شد...");
+
+};
+
+/* Sidebar */
+
+const menuBtn=document.getElementById("menuBtn");
+
+const sidebar=document.getElementById("sidebar");
+
+const overlay=document.getElementById("overlay");
+
+menuBtn.onclick=()=>{
+
+sidebar.classList.add("active");
+
+overlay.classList.add("active");
+
+}
+
+overlay.onclick=()=>{
+
+sidebar.classList.remove("active");
+
+overlay.classList.remove("active");
+
+}
+</script>
 
 </body>
 
 </html>
-<!-- Sidebar -->
-
-<div id="sidebar">
-
-<h2>ZRX</h2>
-
-<a href="index.html">🏠 خانه</a>
-
-<a href="download.html">📥 دانلود</a>
-
-<a href="settings.html">⚙ تنظیمات</a>
-
-<a href="about.html">ℹ درباره</a>
-
-</div>
-
-<button id="menu">☰</button>
-
-<div id="toast">
-دانلود شروع شد...
-</div>
-<button onclick="goHome()">🏠 خانه</button>
-
-<button onclick="goDownload()">📥 دانلود</button>
-
-<button onclick="goSettings()">⚙ تنظیمات</button>
-
-<button onclick="goAbout()">ℹ درباره</button>

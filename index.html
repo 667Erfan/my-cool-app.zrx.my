@@ -1,347 +1,545 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zrx Launcher</title>
-    <!-- فایل ذرات متحرک پس‌زمینه -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap');
 
-        :root {
-            --bg-color: #060a12;
-            --card-bg: rgba(13, 22, 38, 0.75);
-            --cyan: #00eaff;
-            --blue: #1976ff;
-            --text-color: #ffffff;
-            --text-sub: #94a3b8;
-        }
+<meta charset="UTF-8">
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Vazirmatn', sans-serif;
-        }
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
+<title>Zrx Launcher</title>
 
-        /* کانواس انیمیشن ذرات */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
+<meta name="theme-color"
+content="#00ffff">
 
-        /* هدر بالا */
-        header {
-            position: relative;
-            z-index: 10;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 30px;
-            background: rgba(6, 10, 18, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 234, 255, 0.2);
-        }
+<link rel="manifest"
+href="manifest.json">
 
-        .logo {
-            font-size: 24px;
-            font-weight: 900;
-            color: var(--cyan);
-            text-shadow: 0 0 15px var(--cyan);
-        }
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
 
-        .header-controls {
-            display: flex;
-            gap: 10px;
-        }
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
 
-        .btn-icon {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
-            padding: 6px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap"
+rel="stylesheet">
 
-        .btn-icon:hover {
-            border-color: var(--cyan);
-            color: var(--cyan);
-        }
+<link rel="stylesheet"
+href="style.css">
 
-        /* محتوای اصلی */
-        .container {
-            position: relative;
-            z-index: 10;
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: 1fr 380px;
-            gap: 30px;
-        }
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
-        @media (max-width: 850px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* کارت‌ها */
-        .card {
-            background: var(--card-bg);
-            border: 1px solid rgba(0, 234, 255, 0.15);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .title-hero {
-            font-size: 32px;
-            font-weight: 900;
-            background: linear-gradient(45deg, #fff, var(--cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .subtitle {
-            font-size: 15px;
-            color: var(--text-sub);
-            line-height: 1.8;
-        }
-
-        /* دکمه دانلود با انیمیشن float */
-        .download-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
-            padding: 16px 32px;
-            border-radius: 14px;
-            font-size: 18px;
-            font-weight: bold;
-            background: linear-gradient(45deg, var(--cyan), var(--blue));
-            color: #fff;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(0, 234, 255, 0.4);
-            transition: 0.3s;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        .download-btn:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 0 35px rgba(0, 234, 255, 0.8);
-        }
-
-        /* ویژگی‌ها */
-        .features {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 12px 16px;
-            border-radius: 12px;
-            border-right: 3px solid var(--cyan);
-        }
-
-        /* پنل کناری (موزیک و آمار) */
-        .stats-box {
-            text-align: center;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 20px;
-            border-radius: 14px;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .stat-num {
-            font-size: 36px;
-            font-weight: 900;
-            color: var(--cyan);
-        }
-
-        audio {
-            width: 100%;
-            margin-top: 10px;
-            border-radius: 8px;
-        }
-
-        .settings-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        select, button.save-btn {
-            width: 100%;
-            background: #090e1a;
-            border: 1px solid rgba(0,234,255,0.2);
-            color: #fff;
-            padding: 8px;
-            border-radius: 8px;
-            outline: none;
-        }
-
-        footer {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            padding: 20px;
-            color: var(--text-sub);
-            font-size: 12px;
-        }
-    </style>
 </head>
+
 <body>
 
-    <!-- شبکه ذرات در پس‌زمینه -->
-    <div id="particles-js"></div>
+<!-- Loading -->
 
-    <!-- هدر -->
-    <header>
-        <div class="logo">Zrx Launcher</div>
-        <div class="header-controls">
-            <button class="btn-icon">FA</button>
-            <button class="btn-icon">🌙</button>
-        </div>
-    </header>
+<div id="loading">
 
-    <!-- بخش اصلی -->
-    <div class="container">
-        
-        <!-- کارت توضیحات و دانلود -->
-        <div class="card">
-            <h1 class="title-hero">به Zrx Launcher خوش آمدید</h1>
-            <p class="subtitle">نسل جدید لانچر Minecraft Java برای اندروید. اجرای روان و سریع بازی با پشتیبانی از تمام مودها و اپتیفاین.</p>
-            
-            <div>
-                <a href="#" class="download-btn">
-                    🚀 دانلود مستقیم لانچر
-                </a>
-            </div>
+<div class="loader"></div>
 
-            <div class="features">
-                <div class="feature-item">
-                    <span>⚡</span>
-                    <div><b>سرعت بالا:</b> اجرای سریع Minecraft Java روی اندروید</div>
-                </div>
-                <div class="feature-item">
-                    <span>🧩</span>
-                    <div><b>سازگار:</b> پشتیبانی کامل از Forge, Fabric و OptiFine</div>
-                </div>
-                <div class="feature-item">
-                    <span>📱</span>
-                    <div><b>عملکرد بهینه:</b> بهینه‌شده برای انواع گوشی و تبلت</div>
-                </div>
-            </div>
-        </div>
+<h2>
 
-        <!-- کارت آمار و ابزارها -->
-        <div class="card">
-            
-            <div class="stats-box">
-                <div style="font-size:13px; color:var(--text-sub);">📈 تعداد دانلود فعال</div>
-                <div class="stat-num" id="dlCount">1,250</div>
-            </div>
+درحال بارگذاری...
 
-            <div>
-                <div style="font-size:14px; font-weight:bold; margin-bottom:8px;">🎵 موزیک زمینه</div>
-                <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
-            </div>
+</h2>
 
-            <hr style="border-color: rgba(255,255,255,0.05);">
+</div>
 
-            <div>
-                <div style="font-size:14px; font-weight:bold;">⚙️ تنظیمات سایت</div>
-                <div class="settings-grid">
-                    <select>
-                        <option>فارسی</option>
-                        <option>English</option>
-                    </select>
-                    <select>
-                        <option>Dark</option>
-                        <option>Light</option>
-                    </select>
-                </div>
-                <button class="save-btn" style="margin-top:10px; cursor:pointer;">ذخیره تنظیمات</button>
-            </div>
+<!-- Particles -->
 
-        </div>
+<div id="particles-js"></div>
 
-    </div>
+<!-- Blur -->
 
-    <footer>
-        Zrx Launcher 2026 © - تمامی حقوق محفوظ است.
-    </footer>
+<div class="bg-blur"></div>
 
-    <!-- کانفیگ ذرات متحرک -->
-    <script>
-        particlesJS("particles-js", {
-            "particles": {
-                "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": "#00eaff" },
-                "shape": { "type": "circle" },
-                "opacity": { "value": 0.4 },
-                "size": { "value": 3, "random": true },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#00eaff",
-                    "opacity": 0.2,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 1.5,
-                    "direction": "none",
-                    "random": false,
-                    "straight": false,
-                    "out_mode": "out",
-                    "bounce": false
-                }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": { "enable": true, "mode": "grab" },
-                    "onclick": { "enable": true, "mode": "push" }
-                }
-            },
-            "retina_detect": true
-        });
-    </script>
+<!-- Sidebar -->
+
+<div id="overlay"></div>
+
+<aside id="sidebar">
+
+<div class="logo">
+
+<h2>ZRX</h2>
+
+</div>
+
+<nav>
+
+<a href="index.html">
+
+🏠 خانه
+
+</a>
+
+<a href="download.html">
+
+📥 دانلود
+
+</a>
+
+<a href="settings.html">
+
+⚙ تنظیمات
+
+</a>
+
+<a href="about.html">
+
+ℹ درباره
+
+</a>
+
+</nav>
+
+</aside>
+
+<!-- Header -->
+
+<header>
+
+<button id="menuBtn">
+
+☰
+
+</button>
+
+<h1>
+
+Zrx Launcher
+
+</h1>
+
+<div class="header-buttons">
+
+<button id="theme">
+
+🌙
+
+</button>
+
+<button id="language">
+
+FA
+
+</button>
+
+</div>
+
+</header>
+
+<!-- Hero -->
+
+<section class="hero">
+
+<div class="glass">
+
+<h2>
+
+به Zrx Launcher خوش آمدید
+
+</h2>
+
+<p>
+
+نسل جدید لانچر Minecraft Java
+
+برای اندروید
+
+</p>
+
+<button
+class="download">
+
+دانلود لانچر
+
+</button>
+
+</div>
+
+</section>
+<!-- Features -->
+
+<section class="cards">
+
+<div class="card">
+
+<h3>🚀 سرعت بالا</h3>
+
+<p>
+
+اجرای سریع Minecraft Java
+
+روی اندروید
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>🎮 سازگار</h3>
+
+<p>
+
+پشتیبانی از Forge
+
+Fabric
+
+OptiFine
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>⚡ عملکرد</h3>
+
+<p>
+
+بهینه شده برای
+
+گوشی و تبلت
+
+</p>
+
+</div>
+
+</section>
+
+<!-- Download Counter -->
+
+<section class="counter glass">
+
+<h2>
+
+📈 تعداد دانلود
+
+</h2>
+
+<h1 id="downloadCount">
+
+0
+
+</h1>
+
+<button id="downloadBtn"
+
+class="download">
+
+دانلود آخرین نسخه
+
+</button>
+
+</section>
+
+<!-- Image Slider -->
+
+<section class="slider">
+
+<div class="slides">
+
+<img src="assets/1.jpg"
+
+class="slide active">
+
+<img src="assets/2.jpg"
+
+class="slide">
+
+<img src="assets/3.jpg"
+
+class="slide">
+
+</div>
+
+<div class="slider-buttons">
+
+<button id="prevSlide">
+
+◀
+
+</button>
+
+<button id="nextSlide">
+
+▶
+
+</button>
+
+</div>
+
+</section>
+
+<!-- Music Player -->
+
+<section class="glass player">
+
+<h2>
+
+🎵 موزیک
+
+</h2>
+
+<audio id="music"
+
+controls>
+
+<source src="assets/music.mp3"
+
+type="audio/mpeg">
+
+</audio>
+
+</section>
+
+<!-- Toast -->
+
+<div id="toast">
+
+دانلود شروع شد...
+
+</div>
+
+<!-- Progress -->
+
+<div class="progress">
+
+<div id="bar"></div>
+
+</div>
+
+<!-- Mouse Cursor -->
+
+<div id="cursor"></div>
+
+<!-- Settings -->
+
+<div id="settingsModal"
+
+class="settings-modal">
+
+<div class="settings-content">
+
+<h2>
+
+⚙ تنظیمات
+
+</h2>
+
+<label>
+
+زبان
+
+</label>
+
+<select id="langSelect">
+
+<option value="fa">
+
+فارسی
+
+</option>
+
+<option value="en">
+
+English
+
+</option>
+
+</select>
+
+<label>
+
+تم
+
+</label>
+
+<select id="themeSelect">
+
+<option value="dark">
+
+Dark
+
+</option>
+
+<option value="light">
+
+Light
+
+</option>
+
+</select>
+
+<button id="saveSettings">
+
+ذخیره
+
+</button>
+
+</div>
+
+</div>
+
+<footer>
+
+<p>
+
+© 2026 Zrx Launcher
+
+</p>
+
+</footer>
+<!-- Scripts -->
+
+<script src="script.js"></script>
+
+<script>
+/* ثبت Service Worker */
+
+if ("serviceWorker" in navigator) {
+
+window.addEventListener("load", () => {
+
+navigator.serviceWorker.register("sw.js")
+
+.then(() => {
+
+console.log("Service Worker Ready");
+
+})
+
+.catch(err => {
+
+console.log(err);
+
+});
+
+});
+
+}
+
+/* PWA نصب */
+
+let deferredPrompt;
+
+window.addEventListener("beforeinstallprompt",(e)=>{
+
+e.preventDefault();
+
+deferredPrompt=e;
+
+});
+
+/* تنظیمات */
+
+const settingsModal=document.getElementById("settingsModal");
+
+const saveSettings=document.getElementById("saveSettings");
+
+const themeBtn=document.getElementById("theme");
+
+const langBtn=document.getElementById("language");
+
+themeBtn.onclick=()=>{
+
+settingsModal.style.display="flex";
+
+}
+
+saveSettings.onclick=()=>{
+
+settingsModal.style.display="none";
+
+localStorage.setItem(
+
+"theme",
+
+document.getElementById("themeSelect").value
+
+);
+
+localStorage.setItem(
+
+"lang",
+
+document.getElementById("langSelect").value
+
+);
+
+showToast("تنظیمات ذخیره شد");
+
+};
+
+window.onclick=(e)=>{
+
+if(e.target==settingsModal){
+
+settingsModal.style.display="none";
+
+}
+
+};
+
+/* Toast */
+
+function showToast(text){
+
+const toast=document.getElementById("toast");
+
+toast.innerHTML=text;
+
+toast.classList.add("show");
+
+setTimeout(()=>{
+
+toast.classList.remove("show");
+
+},2500);
+
+}
+
+/* دانلود */
+
+document.getElementById("downloadBtn")
+
+.onclick=()=>{
+
+showToast("دانلود آغاز شد...");
+
+};
+
+/* Sidebar */
+
+const menuBtn=document.getElementById("menuBtn");
+
+const sidebar=document.getElementById("sidebar");
+
+const overlay=document.getElementById("overlay");
+
+menuBtn.onclick=()=>{
+
+sidebar.classList.add("active");
+
+overlay.classList.add("active");
+
+}
+
+overlay.onclick=()=>{
+
+sidebar.classList.remove("active");
+
+overlay.classList.remove("active");
+
+}
+</script>
+
 </body>
+
 </html>

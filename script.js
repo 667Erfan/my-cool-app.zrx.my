@@ -1149,27 +1149,6 @@ window.innerHeight
 /* ---------- End ---------- */
 
 console.log("✅ ZRX Launcher Ready");
-// ===== Developer Console =====
-
-const consoleLog = document.getElementById("consoleLog");
-const clearConsole = document.getElementById("clearConsole");
-
-function addLog(type,text){
-
-if(!consoleLog)return;
-
-const item=document.createElement("div");
-
-item.className="log "+type;
-
-item.innerHTML=`
-<span class="time">${new Date().toLocaleTimeString()}</span>
-<span class="type">${type.toUpperCase()}</span>
-<span class="text">${text}</span>
-`;
-
-consoleLog.appendChild(item);
-
 consoleLog.scrollTop=consoleLog.scrollHeight;
 
 }

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>تنظیمات | Zrx Launcher</title>
+
+<meta name="theme-color"
+content="#00ffff">
+
+<link rel="manifest"
+href="manifest.json">
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+</head>
+
+<body>
+
+<!-- Loading -->
+
+<div id="loading">
+
+<div class="loader"></div>
+
+<h2>درحال بارگذاری...</h2>
+
+</div>
+
+<!-- Background -->
+
+<div id="particles-js"></div>
+
+<div class="bg-blur"></div>
+
+<!-- Sidebar -->
+
+<div id="overlay"></div>
+
+<aside id="sidebar">
+
+<div class="logo">
+
+<h2>ZRX</h2>
+
+</div>
+
+<nav>
+
+<a href="index.html">🏠 خانه</a>
+
+<a href="download.html">📥 دانلود</a>
+
+<a href="settings.html" class="active">⚙ تنظیمات</a>
+
+<a href="about.html">ℹ درباره</a>
+
+</nav>
+
+</aside>
+
+<!-- Header -->
+
+<header>
+
+<button id="menuBtn">☰</button>
+
+<h1>تنظیمات</h1>
+
+<div class="header-buttons">
+
+<button id="theme">🌙</button>
+
+<button id="language">FA</button>
+
+</div>
+
+  </header>
+  <!-- Settings -->
+
+<main class="hero">
+
+<div class="glass">
+
+<h2>⚙ تنظیمات لانچر</h2>
+
+<p>
+
+تنظیمات دلخواه خود را انتخاب کنید.
+
+</p>
+
+<div class="card">
+
+<label>🌙 حالت نمایش</label>
+
+<select id="themeSelect">
+
+<option value="dark">تاریک</option>
+
+<option value="light">روشن</option>
+
+</select>
+
+</div>
+
+<div class="card">
+
+<label>🌍 زبان</label>
+
+<select id="langSelect">
+
+<option value="fa">فارسی</option>
+
+<option value="en">English</option>
+
+</select>
+
+</div>
+
+<div class="card">
+
+<label>💾 مقدار RAM</label>
+
+<select id="ramSelect">
+
+<option>2 GB</option>
+
+<option selected>4 GB</option>
+
+<option>6 GB</option>
+
+<option>8 GB</option>
+
+<option>12 GB</option>
+
+<option>16 GB</option>
+
+</select>
+
+</div>
+
+<div class="card">
+
+<label>🎮 نسخه Minecraft</label>
+
+<select id="versionSelect">
+
+<option>1.8.8</option>
+
+<option>1.12.2</option>
+
+<option>1.16.5</option>
+
+<option selected>1.18.2</option>
+
+<option>1.20.1</option>
+
+<option>1.21.x</option>
+
+</select>
+
+</div>
+<div class="card">
+
+<h3>⚡ عملکرد</h3>
+
+<label class="switch">
+
+<input type="checkbox" id="performanceMode">
+
+<span class="sliderSwitch"></span>
+
+</label>
+
+<p>فعال کردن حالت Performance برای اجرای بهتر بازی</p>
+
+</div>
+
+<div class="card">
+
+<h3>🎵 صداها</h3>
+
+<label class="switch">
+
+<input type="checkbox" id="soundEffects" checked>
+
+<span class="sliderSwitch"></span>
+
+</label>
+
+<p>پخش صداهای رابط کاربری</p>
+
+</div>
+
+<div class="card">
+
+<h3>🌌 پس‌زمینه متحرک</h3>
+
+<label class="switch">
+
+<input type="checkbox" id="particlesEnabled" checked>
+
+<span class="sliderSwitch"></span>
+
+</label>
+
+<p>فعال یا غیرفعال کردن افکت Particles</p>
+
+</div>
+
+<div class="card">
+
+<h3>📱 نصب به صورت برنامه</h3>
+
+<button id="installPWA" class="download">
+
+نصب برنامه
+
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>💾 ذخیره تنظیمات</h3>
+
+<button id="saveSettings"
+
+class="download">
+
+ذخیره تنظیمات
+
+</button>
+
+</div>
+
+</div>
+
+</main>
+<!-- Toast -->
+
+<div id="toast">
+
+تنظیمات ذخیره شد.
+
+</div>
+
+<!-- Progress -->
+
+<div class="progress">
+
+<div id="bar"></div>
+
+</div>
+
+<!-- Cursor -->
+
+<div id="cursor"></div>
+
+<footer>
+
+<p>
+
+© 2026 Zrx Launcher
+
+</p>
+
+</footer>
+
+<script src="script.js"></script>
+
+<script>
+
+// بارگذاری تنظیمات
+
+window.addEventListener("load",()=>{
+
+const theme=localStorage.getItem("theme");
+
+const lang=localStorage.getItem("lang");
+
+const ram=localStorage.getItem("ram");
+
+const version=localStorage.getItem("version");
+
+if(theme){
+
+document.getElementById("themeSelect").value=theme;
+
+}
+
+if(lang){
+
+document.getElementById("langSelect").value=lang;
+
+}
+
+if(ram){
+
+document.getElementById("ramSelect").value=ram;
+
+}
+
+if(version){
+
+document.getElementById("versionSelect").value=version;
+
+}
+
+});
+
+// ذخیره تنظیمات
+
+document.getElementById("saveSettings").onclick=()=>{
+
+localStorage.setItem(
+
+"theme",
+
+document.getElementById("themeSelect").value
+
+);
+
+localStorage.setItem(
+
+"lang",
+
+document.getElementById("langSelect").value
+
+);
+
+localStorage.setItem(
+
+"ram",
+
+document.getElementById("ramSelect").value
+
+);
+
+localStorage.setItem(
+
+"version",
+
+document.getElementById("versionSelect").value
+
+);
+
+const toast=document.getElementById("toast");
+
+toast.classList.add("show");
+
+setTimeout(()=>{
+
+toast.classList.remove("show");
+
+},2500);
+
+};
+
+// منوی کناری
+
+const menuBtn=document.getElementById("menuBtn");
+
+const sidebar=document.getElementById("sidebar");
+
+const overlay=document.getElementById("overlay");
+
+menuBtn.onclick=()=>{
+
+sidebar.classList.add("active");
+
+overlay.classList.add("active");
+
+};
+
+overlay.onclick=()=>{
+
+sidebar.classList.remove("active");
+
+overlay.classList.remove("active");
+
+};
+
+</script>
+
+</body>
+
+</html>

@@ -1140,6 +1140,7 @@ console.log(
 window.innerWidth,
 
 window.innerHeight
+   
 
 );
 
@@ -1148,3 +1149,81 @@ window.innerHeight
 /* ---------- End ---------- */
 
 console.log("✅ ZRX Launcher Ready");
+/* ==========================
+   Developer Console
+========================== */
+
+const consoleLog = document.getElementById("consoleLog");
+const clearConsole = document.getElementById("clearConsole");
+
+function addLog(type, text){
+
+if(!consoleLog) return;
+
+const time = new Date().toLocaleTimeString();
+
+const log = document.createElement("div");
+
+log.className = "log " + type;
+
+log.innerHTML = `
+<span class="time">${time}</span>
+<span class="type">${type.toUpperCase()}</span>
+<span class="text">${text}</span>
+`;
+
+consoleLog.appendChild(log);
+
+consoleLog.scrollTop = consoleLog.scrollHeight;
+
+}
+
+// هنگام اجرای سایت
+
+window.addEventListener("load",()=>{
+
+addLog("success","Zrx Launcher Started");
+
+});
+
+// دکمه دانلود
+
+const downloadBtn = document.getElementById("downloadBtn");
+
+if(downloadBtn){
+
+downloadBtn.addEventListener("click",()=>{
+
+addLog("info","Download Started");
+
+});
+
+}
+
+// دکمه ذخیره تنظیمات
+
+const saveSettings = document.getElementById("saveSettings");
+
+if(saveSettings){
+
+saveSettings.addEventListener("click",()=>{
+
+addLog("success","Settings Saved");
+
+});
+
+}
+
+// پاک کردن کنسول
+
+if(clearConsole){
+
+clearConsole.addEventListener("click",()=>{
+
+consoleLog.innerHTML="";
+
+addLog("warning","Console Cleared");
+
+});
+
+   }

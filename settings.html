@@ -5,29 +5,21 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>تنظیمات | Zrx Launcher</title>
 
-<meta name="theme-color"
-content="#00ffff">
+<meta name="theme-color" content="#00eaff">
 
-<link rel="manifest"
-href="manifest.json">
+<link rel="manifest" href="manifest.json">
 
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap"
-rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet"
-href="style.css">
+<link rel="stylesheet" href="style.css">
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
@@ -41,7 +33,7 @@ href="style.css">
 
 <div class="loader"></div>
 
-<h2>درحال بارگذاری...</h2>
+<h2 id="loadingText">در حال بارگذاری...</h2>
 
 </div>
 
@@ -51,9 +43,11 @@ href="style.css">
 
 <div class="bg-blur"></div>
 
-<!-- Sidebar -->
+<!-- Overlay -->
 
 <div id="overlay"></div>
+
+<!-- Sidebar -->
 
 <aside id="sidebar">
 
@@ -83,40 +77,40 @@ href="style.css">
 
 <button id="menuBtn">☰</button>
 
-<h1>تنظیمات</h1>
+<h1 id="pageTitle">تنظیمات</h1>
 
 <div class="header-buttons">
 
-<button id="theme">🌙</button>
+<button id="themeToggle">🌙</button>
 
-<button id="language">FA</button>
+<button id="languageToggle">FA</button>
 
 </div>
 
-  </header>
-  <!-- Settings -->
+</header>
 
 <main class="hero">
 
 <div class="glass">
 
-<h2>⚙ تنظیمات لانچر</h2>
+<h2 id="settingsTitle">⚙ تنظیمات لانچر</h2>
 
-<p>
+<p id="settingsDesc">
 
-تنظیمات دلخواه خود را انتخاب کنید.
+تمام تنظیمات لانچر را از این صفحه مدیریت کنید.
 
 </p>
+<!-- تنظیمات -->
 
 <div class="card">
 
-<label>🌙 حالت نمایش</label>
+<h3 id="themeText">🌙 حالت نمایش</h3>
 
 <select id="themeSelect">
 
-<option value="dark">تاریک</option>
+<option value="dark">تاریک (Dark)</option>
 
-<option value="light">روشن</option>
+<option value="light">روشن (Light)</option>
 
 </select>
 
@@ -124,7 +118,7 @@ href="style.css">
 
 <div class="card">
 
-<label>🌍 زبان</label>
+<h3 id="languageText">🌍 زبان</h3>
 
 <select id="langSelect">
 
@@ -138,21 +132,21 @@ href="style.css">
 
 <div class="card">
 
-<label>💾 مقدار RAM</label>
+<h3 id="ramText">💾 مقدار RAM</h3>
 
 <select id="ramSelect">
 
-<option>2 GB</option>
+<option value="2">2 GB</option>
 
-<option selected>4 GB</option>
+<option value="4" selected>4 GB</option>
 
-<option>6 GB</option>
+<option value="6">6 GB</option>
 
-<option>8 GB</option>
+<option value="8">8 GB</option>
 
-<option>12 GB</option>
+<option value="12">12 GB</option>
 
-<option>16 GB</option>
+<option value="16">16 GB</option>
 
 </select>
 
@@ -160,7 +154,7 @@ href="style.css">
 
 <div class="card">
 
-<label>🎮 نسخه Minecraft</label>
+<h3 id="versionText">🎮 نسخه Minecraft</h3>
 
 <select id="versionSelect">
 
@@ -179,9 +173,10 @@ href="style.css">
 </select>
 
 </div>
+
 <div class="card">
 
-<h3>⚡ عملکرد</h3>
+<h3 id="performanceText">⚡ حالت Performance</h3>
 
 <label class="switch">
 
@@ -191,13 +186,16 @@ href="style.css">
 
 </label>
 
-<p>فعال کردن حالت Performance برای اجرای بهتر بازی</p>
+<p id="performanceDesc">
+
+برای اجرای بهتر Minecraft فعال کنید.
+
+</p>
 
 </div>
-
 <div class="card">
 
-<h3>🎵 صداها</h3>
+<h3 id="soundText">🎵 صداها</h3>
 
 <label class="switch">
 
@@ -207,13 +205,17 @@ href="style.css">
 
 </label>
 
-<p>پخش صداهای رابط کاربری</p>
+<p id="soundDesc">
+
+صداهای رابط کاربری فعال باشد.
+
+</p>
 
 </div>
 
 <div class="card">
 
-<h3>🌌 پس‌زمینه متحرک</h3>
+<h3 id="particlesText">🌌 پس‌زمینه متحرک</h3>
 
 <label class="switch">
 
@@ -223,17 +225,21 @@ href="style.css">
 
 </label>
 
-<p>فعال یا غیرفعال کردن افکت Particles</p>
+<p id="particlesDesc">
+
+فعال بودن افکت Particles
+
+</p>
 
 </div>
 
 <div class="card">
 
-<h3>📱 نصب به صورت برنامه</h3>
+<h3 id="installText">📱 نصب برنامه</h3>
 
 <button id="installPWA" class="download">
 
-نصب برنامه
+نصب نسخه PWA
 
 </button>
 
@@ -241,13 +247,11 @@ href="style.css">
 
 <div class="card">
 
-<h3>💾 ذخیره تنظیمات</h3>
+<h3 id="saveText">💾 ذخیره تنظیمات</h3>
 
-<button id="saveSettings"
+<button id="saveSettings" class="download">
 
-class="download">
-
-ذخیره تنظیمات
+ذخیره تغییرات
 
 </button>
 
@@ -256,6 +260,7 @@ class="download">
 </div>
 
 </main>
+
 <!-- Toast -->
 
 <div id="toast">
@@ -285,86 +290,48 @@ class="download">
 </p>
 
 </footer>
-
 <script src="script.js"></script>
 
 <script>
 
-// بارگذاری تنظیمات
+// ---------- عناصر ----------
 
-window.addEventListener("load",()=>{
+const menuBtn = document.getElementById("menuBtn");
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
 
-const theme=localStorage.getItem("theme");
+const saveBtn = document.getElementById("saveSettings");
 
-const lang=localStorage.getItem("lang");
+const themeSelect = document.getElementById("themeSelect");
+const langSelect = document.getElementById("langSelect");
+const ramSelect = document.getElementById("ramSelect");
+const versionSelect = document.getElementById("versionSelect");
 
-const ram=localStorage.getItem("ram");
+const toast = document.getElementById("toast");
 
-const version=localStorage.getItem("version");
+// ---------- منوی کناری ----------
 
-if(theme){
+menuBtn.onclick = () => {
 
-document.getElementById("themeSelect").value=theme;
+sidebar.classList.add("active");
 
-}
+overlay.classList.add("active");
 
-if(lang){
+};
 
-document.getElementById("langSelect").value=lang;
+overlay.onclick = () => {
 
-}
+sidebar.classList.remove("active");
 
-if(ram){
+overlay.classList.remove("active");
 
-document.getElementById("ramSelect").value=ram;
+};
 
-}
+// ---------- Toast ----------
 
-if(version){
+function showToast(text){
 
-document.getElementById("versionSelect").value=version;
-
-}
-
-});
-
-// ذخیره تنظیمات
-
-document.getElementById("saveSettings").onclick=()=>{
-
-localStorage.setItem(
-
-"theme",
-
-document.getElementById("themeSelect").value
-
-);
-
-localStorage.setItem(
-
-"lang",
-
-document.getElementById("langSelect").value
-
-);
-
-localStorage.setItem(
-
-"ram",
-
-document.getElementById("ramSelect").value
-
-);
-
-localStorage.setItem(
-
-"version",
-
-document.getElementById("versionSelect").value
-
-);
-
-const toast=document.getElementById("toast");
+toast.textContent = text;
 
 toast.classList.add("show");
 
@@ -374,29 +341,95 @@ toast.classList.remove("show");
 
 },2500);
 
+}
+
+// ---------- تغییر تم ----------
+
+function applyTheme(theme){
+
+if(theme==="light"){
+
+document.body.classList.add("light");
+
+}else{
+
+document.body.classList.remove("light");
+
+}
+
+}
+
+// ---------- تغییر زبان ----------
+
+function applyLanguage(lang){
+
+if(lang==="en"){
+
+document.documentElement.lang="en";
+
+document.documentElement.dir="ltr";
+
+document.getElementById("pageTitle").textContent="Settings";
+
+document.getElementById("settingsTitle").textContent="Launcher Settings";
+
+document.getElementById("settingsDesc").textContent="Manage all launcher settings.";
+
+document.getElementById("saveSettings").textContent="Save Settings";
+
+}else{
+
+document.documentElement.lang="fa";
+
+document.documentElement.dir="rtl";
+
+document.getElementById("pageTitle").textContent="تنظیمات";
+
+document.getElementById("settingsTitle").textContent="⚙ تنظیمات لانچر";
+
+document.getElementById("settingsDesc").textContent="تمام تنظیمات لانچر را از این صفحه مدیریت کنید.";
+
+document.getElementById("saveSettings").textContent="ذخیره تغییرات";
+
+}
+
+}
+
+// ---------- بارگذاری ----------
+
+window.onload=()=>{
+
+themeSelect.value=localStorage.getItem("theme")||"dark";
+
+langSelect.value=localStorage.getItem("lang")||"fa";
+
+ramSelect.value=localStorage.getItem("ram")||"4";
+
+versionSelect.value=localStorage.getItem("version")||"1.18.2";
+
+applyTheme(themeSelect.value);
+
+applyLanguage(langSelect.value);
+
 };
 
-// منوی کناری
+// ---------- ذخیره ----------
 
-const menuBtn=document.getElementById("menuBtn");
+saveBtn.onclick=()=>{
 
-const sidebar=document.getElementById("sidebar");
+localStorage.setItem("theme",themeSelect.value);
 
-const overlay=document.getElementById("overlay");
+localStorage.setItem("lang",langSelect.value);
 
-menuBtn.onclick=()=>{
+localStorage.setItem("ram",ramSelect.value);
 
-sidebar.classList.add("active");
+localStorage.setItem("version",versionSelect.value);
 
-overlay.classList.add("active");
+applyTheme(themeSelect.value);
 
-};
+applyLanguage(langSelect.value);
 
-overlay.onclick=()=>{
-
-sidebar.classList.remove("active");
-
-overlay.classList.remove("active");
+showToast("تنظیمات ذخیره شد.");
 
 };
 

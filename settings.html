@@ -1,273 +1,730 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<!doctype html>
+<html lang="fa">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings | Zrx Launcher</title>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            /* رنگ‌های حالت شب (پیش‌فرض) */
-            --bg-color: #0f0f0f;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --text-color: #ffffff;
-            --accent-color: #ff4b2b;
-            --secondary-text: #b0b0b0;
-            --border-color: rgba(255, 255, 255, 0.1);
-            --input-bg: rgba(255, 255, 255, 0.05);
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Settings</title>
 
-        [data-theme="light"] {
-            /* رنگ‌های حالت روز */
-            --bg-color: #f0f2f5;
-            --card-bg: rgba(255, 255, 255, 0.8);
-            --text-color: #1a1a1a;
-            --accent-color: #ff416c;
-            --secondary-text: #555555;
-            --border-color: rgba(0, 0, 0, 0.1);
-            --input-bg: rgba(0, 0, 0, 0.05);
-        }
+  <style>
+    :root{
+      --bg0:#070A12;
+      --bg1:#0B1020;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.09);
+      --stroke: rgba(255,255,255,.12);
+      --text:#EAF0FF;
+      --muted: rgba(234,240,255,.72);
+      --muted2: rgba(234,240,255,.52);
+      --shadow: 0 16px 50px rgba(0,0,0,.45);
+      --brand1:#7C3AED; /* purple */
+      --brand2:#22C55E; /* green */
+      --brand3:#38BDF8; /* blue */
+      --danger:#FB7185;
 
-        * {
-            box-sizing: border-box;
-            transition: all 0.3s ease; /* برای اینکه تغییر تم نرم باشد */
-        }
+      --radius: 22px;
+      --radius2: 16px;
+    }
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Vazirmatn', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+    *{ box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: radial-gradient(1200px 700px at 20% 10%, rgba(124,58,237,.28), transparent 60%),
+                  radial-gradient(900px 600px at 80% 20%, rgba(56,189,248,.22), transparent 55%),
+                  radial-gradient(900px 600px at 70% 90%, rgba(34,197,94,.18), transparent 55%),
+                  linear-gradient(180deg, var(--bg0), var(--bg1));
+      color: var(--text);
+      min-height:100vh;
+      overflow-x:hidden;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding: 22px 14px 40px;
+      direction: rtl;
+    }
 
-        .settings-container {
-            width: 90%;
-            max-width: 600px;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
-            border-radius: 30px;
-            padding: 30px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-        }
+    /* Floating particles */
+    .particles{
+      position:fixed; inset:0;
+      pointer-events:none;
+      opacity:.9;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(124,58,237,.30) 0 2px, transparent 3px),
+        radial-gradient(circle at 75% 20%, rgba(56,189,248,.25) 0 2px, transparent 3px),
+        radial-gradient(circle at 40% 70%, rgba(34,197,94,.20) 0 2px, transparent 3px),
+        radial-gradient(circle at 85% 80%, rgba(251,113,133,.15) 0 2px, transparent 3px);
+      filter: blur(.2px);
+      animation: floatBg 10s ease-in-out infinite alternate;
+    }
+    @keyframes floatBg{
+      from{ transform: translate3d(0,0,0); opacity:.82; }
+      to{ transform: translate3d(0,-8px,0); opacity:1; }
+    }
 
-        .settings-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
-        }
+    .wrap{
+      width: min(980px, 100%);
+    }
 
-        .settings-header h1 {
-            font-size: 1.5rem;
-            margin: 0;
-        }
+    .topbar{
+      display:flex; gap:14px;
+      align-items:center; justify-content:space-between;
+      margin-bottom: 18px;
+    }
 
-        /* دکمه سوئیچ حالت شب و روز */
-        .theme-toggle {
-            background: var(--input-bg);
-            border: 1px solid var(--border-color);
-            padding: 10px 15px;
-            border-radius: 15px;
-            color: var(--text-color);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
-        }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      padding: 10px 12px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--stroke);
+      border-radius: 18px;
+      box-shadow: 0 10px 35px rgba(0,0,0,.25);
+      backdrop-filter: blur(10px);
+    }
+    .logo{
+      width:44px; height:44px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(124,58,237,.9), rgba(56,189,248,.7));
+      display:grid; place-items:center;
+      box-shadow: 0 18px 45px rgba(124,58,237,.25);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo:after{
+      content:"";
+      position:absolute; inset:-40%;
+      background: conic-gradient(from 180deg, rgba(255,255,255,.0), rgba(255,255,255,.35), rgba(255,255,255,.0));
+      animation: spin 2.2s linear infinite;
+      opacity:.65;
+    }
+    @keyframes spin{
+      to{ transform: rotate(360deg); }
+    }
+    .logo span{
+      position:relative;
+      font-weight:900;
+      letter-spacing:-1px;
+      font-size: 18px;
+      z-index:1;
+    }
+    .brand h1{
+      margin:0;
+      font-size: 18px;
+      line-height:1.2;
+      letter-spacing:.2px;
+    }
+    .brand p{
+      margin:3px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
 
-        .theme-toggle:hover {
-            background: var(--accent-color);
-            color: white;
-        }
+    .lang-switch{
+      display:flex; gap:10px; align-items:center;
+      padding: 10px 12px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.04);
+      border:1px solid var(--stroke);
+      box-shadow: 0 10px 35px rgba(0,0,0,.25);
+      backdrop-filter: blur(10px);
+    }
 
-        /* کلاس‌های کمکی برای بخش‌های بعدی */
-        .settings-section {
-            margin-bottom: 30px;
-        }
+    .pill{
+      position:relative;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      padding: 10px 14px;
+      border-radius: 999px;
+      cursor:pointer;
+      user-select:none;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing:.2px;
+      transition: transform .12s ease, background .2s ease, border-color .2s ease, color .2s ease;
+      outline: none;
+    }
+    .pill:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.22); }
+    .pill.active{
+      color: #061116;
+      border-color: transparent;
+      background: linear-gradient(135deg, rgba(34,197,94,.95), rgba(56,189,248,.75));
+      box-shadow: 0 18px 45px rgba(34,197,94,.18);
+    }
 
-        .section-title {
-            font-size: 1.1rem;
-            color: var(--accent-color);
-            margin-bottom: 15px;
-            display: block;
-        }
+    /* Layout */
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    @media (min-width: 860px){
+      .grid{ grid-template-columns: 1fr 1fr; }
+      .span2{ grid-column: span 2; }
+    }
 
-        /* در مرحله بعد بخش‌های داخل این کانتینر را تکمیل می‌کنم */
-    </style>
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.035));
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      overflow:hidden;
+      position:relative;
+    }
+    .card:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(800px 240px at 15% 0%, rgba(124,58,237,.25), transparent 55%),
+                  radial-gradient(700px 240px at 85% 0%, rgba(56,189,248,.18), transparent 55%),
+                  radial-gradient(700px 240px at 50% 120%, rgba(34,197,94,.14), transparent 60%);
+      pointer-events:none;
+    }
+    .card > *{ position:relative; }
+
+    .cardHeader{
+      padding: 16px 16px 10px;
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+    }
+    .cardHeader .title{
+      display:flex; flex-direction:column; gap:6px;
+    }
+    .cardHeader h2{
+      margin:0;
+      font-size: 15px;
+      letter-spacing:.2px;
+      display:flex; align-items:center; gap:10px;
+    }
+    .badge{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      color: var(--muted);
+    }
+    .desc{
+      margin:0;
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height:1.6;
+    }
+
+    .cardBody{
+      padding: 14px 16px 16px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    .choices{
+      display:grid;
+      gap: 10px;
+    }
+
+    .choice{
+      border-radius: var(--radius2);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      padding: 12px 12px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      transition: transform .12s ease, border-color .2s ease, background .2s ease;
+      user-select:none;
+      position:relative;
+      overflow:hidden;
+    }
+    .choice:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.22);
+      background: rgba(255,255,255,.05);
+    }
+
+    .choice .left{
+      display:flex; align-items:center; gap:12px;
+      min-width: 0;
+    }
+
+    .icon{
+      width:40px; height:40px;
+      border-radius: 14px;
+      display:grid; place-items:center;
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      box-shadow: 0 18px 40px rgba(0,0,0,.25);
+      flex: 0 0 auto;
+    }
+
+    .choice .text{
+      min-width: 0;
+      display:flex; flex-direction:column; gap:3px;
+    }
+    .choice .text strong{
+      font-size: 13.5px;
+      letter-spacing:.2px;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .choice .text span{
+      font-size: 12px;
+      color: var(--muted);
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+
+    .radio{
+      width:22px; height:22px;
+      border-radius: 999px;
+      border:2px solid rgba(255,255,255,.28);
+      background: rgba(255,255,255,.04);
+      display:grid; place-items:center;
+      flex:0 0 auto;
+    }
+    .radio:after{
+      content:"";
+      width:10px; height:10px;
+      border-radius: 999px;
+      background: transparent;
+      transition: background .2s ease, box-shadow .2s ease;
+    }
+
+    .choice.active{
+      border-color: rgba(56,189,248,.42);
+      background: linear-gradient(180deg, rgba(56,189,248,.10), rgba(124,58,237,.08));
+    }
+    .choice.active .radio{
+      border-color: rgba(56,189,248,.65);
+      background: rgba(56,189,248,.12);
+    }
+    .choice.active .radio:after{
+      background: linear-gradient(135deg, rgba(34,197,94,.95), rgba(56,189,248,.85));
+      box-shadow: 0 0 0 6px rgba(56,189,248,.10);
+    }
+
+    .row{
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+    }
+
+    .actions{
+      display:flex; gap:10px; align-items:center; justify-content:flex-end;
+      margin-top: 14px;
+      padding: 0 2px;
+    }
+
+    button.primary{
+      border:none;
+      cursor:pointer;
+      color:#061116;
+      font-weight: 900;
+      padding: 12px 16px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(34,197,94,.95), rgba(56,189,248,.80));
+      box-shadow: 0 22px 55px rgba(56,189,248,.18);
+      transition: transform .12s ease, filter .2s ease;
+    }
+    button.primary:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+
+    button.ghost{
+      cursor:pointer;
+      font-weight: 900;
+      padding: 12px 16px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      transition: transform .12s ease, border-color .2s ease, background .2s ease;
+    }
+    button.ghost:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.24); background: rgba(255,255,255,.06); }
+
+    .footerNote{
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--muted2);
+      text-align:center;
+    }
+
+    /* Theme day/night preview */
+    .day-skin{
+      background:
+        radial-gradient(1200px 700px at 20% 10%, rgba(124,58,237,.18), transparent 60%),
+        radial-gradient(900px 600px at 80% 20%, rgba(56,189,248,.28), transparent 55%),
+        radial-gradient(900px 600px at 70% 90%, rgba(34,197,94,.22), transparent 55%),
+        linear-gradient(180deg, #0A1B3A, #07111F);
+    }
+    .night-skin{
+      background:
+        radial-gradient(1200px 700px at 20% 10%, rgba(124,58,237,.30), transparent 60%),
+        radial-gradient(900px 600px at 80% 20%, rgba(56,189,248,.22), transparent 55%),
+        radial-gradient(900px 600px at 70% 90%, rgba(34,197,94,.18), transparent 55%),
+        linear-gradient(180deg, #040711, #0A0F1E);
+    }
+
+    .rtl{ direction: rtl; }
+    .ltr{ direction: ltr; }
+  </style>
 </head>
-<body data-theme="dark">
 
-    <div class="settings-container">
-        <header class="settings-header">
-            <h1>⚙ تنظیمات</h1>
-            <button class="theme-toggle" id="themeToggle">
-                <span id="themeIcon">☀️</span>
-                <span id="themeText">حالت روز</span>
-            </button>
-        </header>
+<body class="night-skin">
+  <div class="particles"></div>
 
-        <div id="settings-content">
-            <!-- بخش‌های بعدی اینجا قرار می‌گیرند -->
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo"><span>⚙</span></div>
+        <div>
+          <h1 id="uiTitle">Settings</h1>
+          <p id="uiSubtitle">Fast UI · Save instantly</p>
         </div>
+      </div>
+
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button class="pill active" type="button" id="btnFA" data-lang="fa">فارسی</button>
+        <button class="pill" type="button" id="btnEN" data-lang="en">EN</button>
+      </div>
     </div>
 
-    <script>
-        // اسکریپت اولیه برای حالت شب/روز
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        const themeText = document.getElementById('themeText');
-        const body = document.body;
+    <div class="grid">
+      <!-- Version -->
+      <section class="card">
+        <div class="cardHeader">
+          <div class="title">
+            <h2>
+              <span class="badge">🧩</span>
+              <span id="verTitle">Minecraft Version</span>
+            </h2>
+            <p class="desc" id="verDesc">Choose which game version you want.</p>
+          </div>
+          <div class="badge" id="verBadge">Recommended</div>
+        </div>
 
-        // بررسی اینکه آیا کاربر قبلاً تمی را انتخاب کرده است یا خیر
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        applyTheme(savedTheme);
+        <div class="cardBody">
+          <div class="choices" id="verChoices">
+            <div class="choice active" data-setting="version" data-value="1.20.1">
+              <div class="left">
+                <div class="icon">🟦</div>
+                <div class="text">
+                  <strong>1.20.1</strong>
+                  <span>Stable performance</span>
+                </div>
+              </div>
+              <div class="radio"></div>
+            </div>
 
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            applyTheme(newTheme);
-        });
+            <div class="choice" data-setting="version" data-value="1.20.4">
+              <div class="left">
+                <div class="icon">🟦</div>
+                <div class="text">
+                  <strong>1.20.4</strong>
+                  <span>Great compatibility</span>
+                </div>
+              </div>
+              <div class="radio"></div>
+            </div>
 
-        function applyTheme(theme) {
-            body.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme); // ذخیره در حافظه
+            <div class="choice" data-setting="version" data-value="1.21.1">
+              <div class="left">
+                <div class="icon">🟪</div>
+                <div class="text">
+                  <strong>1.21.1</strong>
+                  <span>Latest features</span>
+                </div>
+              </div>
+              <div class="radio"></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-            if (theme === 'light') {
-                themeIcon.innerText = '🌙';
-                themeText.innerText = 'حالت شب';
-            } else {
-                themeIcon.innerText = '☀️';
-                themeText.innerText = 'حالت روز';
-            }
-        }
-    </script>
+      <!-- Theme -->
+      <section class="card">
+        <div class="cardHeader">
+          <div class="title">
+            <h2>
+              <span class="badge">🌗</span>
+              <span id="themeTitle">Day / Night</span>
+            </h2>
+            <p class="desc" id="themeDesc">Switch UI theme (and background).</p>
+          </div>
+          <div class="badge" id="themeBadge">Instant</div>
+        </div>
+
+        <div class="cardBody">
+          <div class="choices" id="themeChoices">
+            <div class="choice" data-setting="theme" data-value="night">
+              <div class="left">
+                <div class="icon">🌙</div>
+                <div class="text">
+                  <strong id="nightLabel">Night</strong>
+                  <span id="nightSub">Dark & focus</span>
+                </div>
+              </div>
+              <div class="radio"></div>
+            </div>
+
+            <div class="choice active" data-setting="theme" data-value="day">
+              <div class="left">
+                <div class="icon">☀️</div>
+                <div class="text">
+                  <strong id="dayLabel">Day</strong>
+                  <span id="daySub">Bright & clean</span>
+                </div>
+              </div>
+              <div class="radio"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RAM -->
+      <section class="card span2">
+        <div class="cardHeader">
+          <div class="title">
+            <h2>
+              <span class="badge">🧠</span>
+              <span id="ramTitle">RAM Amount</span>
+            </h2>
+            <p class="desc" id="ramDesc">Choose how much memory Minecraft can use.</p>
+          </div>
+          <div class="badge" id="ramBadge">Performance</div>
+        </div>
+
+        <div class="cardBody">
+          <div class="choices" id="ramChoices" style="grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px;">
+            <div class="choice" data-setting="ram" data-value="2">
+              <div class="left">
+                <div class="icon">💠</div>
+                <div class="text">
+                  <strong id="ram2Label">2 GB</strong>
+                  <span>Light</span>
+                </div>
+              </div>
+              <div class="radio"></div>
+            </div>
+
+            <div class="choice active" data-setting="ram" data-value="4">
+              <div class="left">
+                <div class="icon">💠</div>
+                <div class="text">
+                  <strong id="ram4Label">4 GB</strong>
+                  <span>Balanced</span>
+                </div>
+              </div>
+              <div class="radio"></div>
+            </div>
+
+            <div class="choice" data-setting="ram" data-value="6">
+              <div class="left">
+                <div class="icon">💠</div>
+                <div class="text">
+                  <strong id="ram6Label">6 GB</strong>
+                  <span>Fast</span>
+                </div>
+              </div>
+              <div class="radio"></div>
+            </div>
+
+            <div class="choice" data-setting="ram" data-value="8">
+              <div class="left">
+                <div class="icon">💠</div>
+                <div class="text">
+                  <strong id="ram8Label">8 GB</strong>
+                  <span>Ultra</span>
+                </div>
+              </div>
+              <div class="radio"></div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="ghost" type="button" id="btnReset">Reset</button>
+            <button class="primary" type="button" id="btnSave">Save Settings</button>
+          </div>
+
+          <div class="footerNote" id="uiFooterNote">
+            Stored in localStorage (so it remembers next time).
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    // ===== Translations =====
+    const i18n = {
+      fa: {
+        uiTitle: "تنظیمات",
+        uiSubtitle: "رابط سریع · ذخیره فوری",
+        verTitle: "نسخه Minecraft",
+        verDesc: "انتخاب کن کدام نسخه بازی اجرا شود.",
+        verBadge: "پیشنهادی",
+
+        themeTitle: "شب / روز",
+        themeDesc: "تم رابط کاربری را تغییر بده.",
+        themeBadge: "فوری",
+
+        nightLabel: "شب",
+        nightSub: "تاریک و تمرکز",
+
+        dayLabel: "روز",
+        daySub: "روشن و تمیز",
+
+        ramTitle: "مقدار RAM",
+        ramDesc: "مشخص کن Minecraft چقدر حافظه داشته باشد.",
+        ramBadge: "کارایی",
+
+        btnSave: "ذخیره تنظیمات",
+        btnReset: "ریست",
+        uiFooterNote: "ذخیره در localStorage (برای دفعات بعد یادش می‌مونه)."
+      },
+      en: {
+        uiTitle: "Settings",
+        uiSubtitle: "Fast UI · Save instantly",
+        verTitle: "Minecraft Version",
+        verDesc: "Choose which game version you want.",
+        verBadge: "Recommended",
+
+        themeTitle: "Day / Night",
+        themeDesc: "Switch UI theme (and background).",
+        themeBadge: "Instant",
+
+        nightLabel: "Night",
+        nightSub: "Dark & focus",
+
+        dayLabel: "Day",
+        daySub: "Bright & clean",
+
+        ramTitle: "RAM Amount",
+        ramDesc: "Choose how much memory Minecraft can use.",
+        ramBadge: "Performance",
+
+        btnSave: "Save Settings",
+        btnReset: "Reset",
+        uiFooterNote: "Stored in localStorage (so it remembers next time)."
+      }
+    };
+
+    // ===== State =====
+    const defaultState = {
+      lang: "fa",
+      version: "1.20.1",
+      theme: "day",
+      ram: "4"
+    };
+
+    function loadState(){
+      const raw = localStorage.getItem("mc_settings");
+      if (!raw) return { ...defaultState };
+      try{
+        const s = JSON.parse(raw);
+        return { ...defaultState, ...s };
+      }catch{
+        return { ...defaultState };
+      }
+    }
+
+    function saveState(s){
+      localStorage.setItem("mc_settings", JSON.stringify(s));
+    }
+
+    // ===== Apply UI =====
+    const state = loadState();
+
+    function applyLang(lang){
+      const dict = i18n[lang] || i18n.fa;
+
+      // set text nodes
+      Object.keys(dict).forEach(key => {
+        const el = document.getElementById(key);
+        if (el) el.innerText = dict[key];
+      });
+
+      // dir
+      document.documentElement.lang = lang;
+      document.body.classList.toggle("rtl", lang === "fa");
+      document.body.classList.toggle("ltr", lang === "en");
+
+      document.body.dir = (lang === "fa") ? "rtl" : "ltr";
+
+      // buttons active
+      const btnFA = document.getElementById("btnFA");
+      const btnEN = document.getElementById("btnEN");
+      btnFA.classList.toggle("active", lang === "fa");
+      btnEN.classList.toggle("active", lang === "en");
+
+      // Save/Reset labels
+      const btnSave = document.getElementById("btnSave");
+      const btnReset = document.getElementById("btnReset");
+      btnSave.innerText = dict.btnSave || "Save Settings";
+      btnReset.innerText = dict.btnReset || "Reset";
+    }
+
+    function applyTheme(theme){
+      document.body.classList.toggle("day-skin", theme === "day");
+      document.body.classList.toggle("night-skin", theme !== "day");
+    }
+
+    function setChoiceActive(setting, value){
+      document.querySelectorAll(`.choice[data-setting="${setting}"]`).forEach(el => {
+        const is = String(el.dataset.value) === String(value);
+        el.classList.toggle("active", is);
+      });
+    }
+
+    function applyAll(){
+      // sync state
+      state.lang = state.lang || defaultState.lang;
+      state.version = state.version || defaultState.version;
+      state.theme = state.theme || defaultState.theme;
+      state.ram = state.ram || defaultState.ram;
+
+      applyLang(state.lang);
+      applyTheme(state.theme);
+
+      setChoiceActive("version", state.version);
+      setChoiceActive("theme", state.theme);
+      setChoiceActive("ram", state.ram);
+    }
+
+    // ===== Events =====
+    document.querySelectorAll(".choice").forEach(card => {
+      card.addEventListener("click", () => {
+        const setting = card.dataset.setting;
+        const value = card.dataset.value;
+
+        // update active
+        setChoiceActive(setting, value);
+
+        // update state (do not persist until save, but instant theme applies)
+        state[setting] = value;
+        if (setting === "theme") applyTheme(value);
+      });
+    });
+
+    document.getElementById("btnSave").addEventListener("click", () => {
+      // persist
+      saveState(state);
+      // tiny feedback
+      const btn = document.getElementById("btnSave");
+      const old = btn.innerText;
+      btn.innerText = (state.lang === "fa") ? "✅ ذخیره شد" : "✅ Saved";
+      setTimeout(() => btn.innerText = old, 900);
+    });
+
+    document.getElementById("btnReset").addEventListener("click", () => {
+      Object.assign(state, defaultState);
+      applyAll();
+      // do not automatically save; user hits Save
+    });
+
+    document.getElementById("btnFA").addEventListener("click", () => {
+      state.lang = "fa";
+      applyLang("fa");
+    });
+    document.getElementById("btnEN").addEventListener("click", () => {
+      state.lang = "en";
+      applyLang("en");
+    });
+
+    // ===== First run =====
+    applyAll();
+  </script>
 </body>
 </html>
-<!-- این کد را داخل <div id="settings-content"> قرار بده -->
-
-<style>
-    /* استایل‌های اختصاصی بخش دوم */
-    .settings-section {
-        margin-bottom: 35px;
-    }
-
-    .section-title {
-        font-size: 1.1rem;
-        color: var(--accent-color);
-        margin-bottom: 15px;
-        display: block;
-        font-weight: bold;
-    }
-
-    /* استایل انتخابگر نسخه (Grid Layout) */
-    .version-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-        gap: 15px;
-    }
-
-    .version-card {
-        background: var(--input-bg);
-        border: 1px solid var(--border-color);
-        border-radius: 15px;
-        padding: 15px 10px;
-        text-align: center;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-
-    .version-card:hover {
-        border-color: var(--accent-color);
-        transform: translateY(-3px);
-    }
-
-    .version-card.active {
-        background: var(--accent-color);
-        color: white;
-        border-color: var(--accent-color);
-        box-shadow: 0 5px 15px rgba(255, 75, 43, 0.3);
-    }
-
-    .version-card img {
-        width: 40px;
-        height: 40px;
-        margin-bottom: 8px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .version-name {
-        font-size: 0.85rem;
-        font-weight: bold;
-    }
-
-    /* استایل انتخابگر زبان */
-    .language-selector {
-        display: flex;
-        gap: 10px;
-    }
-
-    .lang-btn {
-        flex: 1;
-        background: var(--input-bg);
-        border: 1px solid var(--border-color);
-        color: var(--text-color);
-        padding: 12px;
-        border-radius: 12px;
-        cursor: pointer;
-        font-family: 'Vazirmatn', sans-serif;
-        transition: 0.3s;
-    }
-
-    .lang-btn.active {
-        background: var(--text-color);
-        color: var(--bg-color);
-        font-weight: bold;
-    }
-</style>
-
-<!-- بخش انتخاب نسخه -->
-<div class="settings-section">
-    <span class="section-title">نسخه بازی (Minecraft Version)</span>
-    <div class="version-grid" id="versionGrid">
-        <!-- نسخه 1.20.1 -->
-        <div class="version-card active" data-version="1.20.1">
-            <img src="https://minecraft.net/favicon.ico" alt="v"> <!-- اینجا می‌توانی آیکون اختصاصی بگذاری -->
-            <div class="version-name">1.20.1</div>
-        </div>
-        <!-- نسخه 1.19.4 -->
-        <div class="version-card" data-version="1.19.4">
-            <img src="https://minecraft.net/favicon.ico" alt="v">
-            <div class="version-name">1.19.4</div>
-        </div>
-        <!-- نسخه 1.18.2 -->
-        <div class="version-card" data-version="1.18.2">
-            <img src="https://minecraft.net/favicon.ico" alt="v">
-            <div class="version-name">1.18.2</div>
-        </div>
-        <!-- نسخه 1.16.5 -->
-        <div class="version-card" data-version="1.16.5">
-            <img src="https://minecraft.net/favicon.ico" alt="v">
-            <div class="version-name">1.16.5</div>
-        </div>
-    </div>
-</div>
-
-<!-- بخش انتخاب زبان -->
-<div class="settings-section">
-    <span class="section-title">زبان (Language)</span>
-    <div class="language-selector">
-        <button class="lang-btn active" data-lang="fa">فارسی</button>
-        <button class="lang-btn" data-lang="en">English</button>
-    </div>
-</div>

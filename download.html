@@ -1,41 +1,180 @@
 <!DOCTYPE html>
-
 <html lang="fa" dir="rtl">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بخش دانلود | ZRX Site</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;400;700&display=swap');
 
-<meta charset="UTF-8">
+        body {
+            background: #0f0c29;
+            font-family: 'Vazirmatn', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: white;
+        }
 
-<title>دانلود</title>
+        .download-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            width: 90%;
+            max-width: 1000px;
+            padding: 20px;
+        }
 
-<link rel="stylesheet" href="style.css">
+        /* کارت دانلود */
+        .download-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
 
+        .download-card:hover {
+            transform: translateY(-15px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #00d2ff;
+            box-shadow: 0 15px 30px rgba(0, 210, 255, 0.3);
+        }
+
+        .icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        h3 {
+            margin: 10px 0;
+            font-size: 1.4rem;
+        }
+
+        p {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        /* دکمه دانلود با انیمیشن */
+        .download-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            position: relative;
+            transition: 0.3s;
+            z-index: 1;
+        }
+
+        .download-btn:active {
+            transform: scale(0.9);
+        }
+
+        /* افکت درخشش (Shine Effect) که روی دکمه حرکت می‌کند */
+        .download-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .download-card:hover .download-btn::after {
+            left: 100%;
+        }
+
+        /* انیمیشن لرزش (Pulse) برای جلب توجه */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 210, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 210, 255, 0); }
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        /* پیام موفقیت بعد از کلیک */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 10px;
+            padding: 16px;
+            position: fixed;
+            z-index: 100;
+            bottom: 30px;
+            font-size: 17px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        #toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+
+    </style>
 </head>
-
 <body>
 
-<header>
+    <div class="download-container">
+        <!-- کارت دانلود ۱ -->
+        <div class="download-card">
+            <span class="icon">📁</span>
+            <h3>فایل پروژه ۱</h3>
+            <p>حجم: 15 MB | نسخه 1.0</p>
+            <!-- نکته مهم: در href آدرس فایل خودت را بگذار و ویژگی download را حتما بنویس -->
+            <a href="files/project1.zip" download="Project_ZRX_1" class="download-btn pulse-animation" onclick="showToast()">دانلود فوری</a>
+        </div>
 
-<h1>دانلود</h1>
+        <!-- کارت دانلود ۲ -->
+        <div class="download-card">
+            <span class="icon">🖼️</span>
+            <h3>تصاویر گرافیکی</h3>
+            <p>حجم: 5 MB | فرمت PNG</p>
+            <a href="files/images.zip" download="ZRX_Images" class="download-btn" onclick="showToast()">دانلود فوری</a>
+        </div>
 
-</header>
+        <!-- کارت دانلود ۳ -->
+        <div class="download-card">
+            <span class="icon">📄</span>
+            <h3>راهنمای نصب</h3>
+            <p>حجم: 2 MB | PDF</p>
+            <a href="files/guide.pdf" download="ZRX_Guide" class="download-btn" onclick="showToast()">دانلود فوری</a>
+        </div>
+    </div>
 
-<div class="glass">
+    <!-- المان پیام موفقیت -->
+    <div id="toast">در حال شروع دانلود... موفقیت‌آمیز! ✅</div>
 
-<h2>آخرین نسخه</h2>
-
-<p>نسخه 1.0</p>
-
-<button>
-
-شروع دانلود
-
-</button>
-
-</div>
-
-<script src="script.js"></script>
+    <script>
+        function showToast() {
+            var toast = document.getElementById("toast");
+            toast.className = "show";
+            // بعد از 3 ثانیه پیام مخفی کن
+            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+    </script>
 
 </body>
-
 </html>

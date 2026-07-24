@@ -1349,3 +1349,52 @@ text-decoration:none;
 /* ==========================
    End
 ========================== */
+/* --- اصلاحات مخصوص موبایل و تبلت (Responsive Fix) --- */
+
+@media (max-width: 768px) {
+    /* ۱. جلوگیری از بیرون زدن محتوا از صفحه */
+    html, body {
+        overflow-x: hidden; 
+        width: 100%;
+    }
+
+    /* ۲. تبدیل چیدمان‌های افقی به عمودی */
+    /* فرض می‌کنیم کانتینر اصلی تو کلاسی مثل .container یا .main-content دارد */
+    .container, .main-content, .glass, .hero-section {
+        width: 90% !important; /* عرض را ۹۰ درصد صفحه کن تا از دو طرف فاصله داشته باشد */
+        margin: 20px auto !important;
+        flex-direction: column !important; /* اگر از Flex استفاده کردی، المان‌ها زیر هم بیایند */
+        align-items: center !important;
+        padding: 15px !important;
+    }
+
+    /* ۳. اصلاح دکمه‌ها برای لمس راحت‌تر */
+    .btn, .download, .btn-3d {
+        width: 100% !important; /* دکمه‌ها در موبایل تمام عرض شوند تا با انگشت راحت زده شوند */
+        max-width: 300px; 
+        margin: 10px 0 !important;
+        font-size: 16px !important; /* فونت کمی کوچکتر برای موبایل */
+    }
+
+    /* ۴. اصلاح هدر و منو */
+    header, .nav-bar {
+        flex-direction: column !important;
+        text-align: center;
+    }
+
+    /* ۵. جلوگیری از بزرگ بودن بیش از حد تصاویر */
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}
+
+/* مخصوص گوشی‌های خیلی کوچک */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem !important;
+    }
+    .glass {
+        padding: 10px !important;
+    }
+}

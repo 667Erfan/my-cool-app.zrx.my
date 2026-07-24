@@ -1347,5 +1347,64 @@ text-decoration:none;
 }
 
 /* ==========================
+
    End
 ========================== */
+/* ==========================
+   LIGHT THEME
+========================== */
+
+body.light{
+
+background:#eef5ff;
+
+color:#111;
+
+}
+
+body.light header{
+
+background:rgba(255,255,255,.75);
+
+backdrop-filter:blur(20px);
+
+}
+
+body.light .glass,
+body.light .card{
+
+background:rgba(255,255,255,.75);
+
+color:#111;
+
+border:1px solid rgba(0,0,0,.08);
+
+}
+
+body.light .btn,
+body.light .download,
+body.light button{
+
+background:linear-gradient(45deg,#00b7ff,#4fc3ff);
+
+color:#fff;
+
+}
+
+body.light select{
+
+background:#ffffff;
+
+color:#111;
+
+border:1px solid #b8dfff;
+
+}
+
+body.light footer{
+
+background:#ffffff;
+
+color:#111;
+
+}

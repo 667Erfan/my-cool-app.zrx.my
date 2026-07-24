@@ -526,6 +526,7 @@ const overlay=document.getElementById("overlay");
 menuBtn.onclick=()=>{
 
 sidebar.classList.add("active");
+  
 
 overlay.classList.add("active");
 
@@ -534,3 +535,42 @@ overlay.classList.add("active");
 overlay.onclick=()=>{
 
 sidebar.classList.remove("active");
+  <!-- ==========================
+     Developer Console
+========================== -->
+
+<section class="glass console-box">
+
+<h2>🖥️ Console Activity</h2>
+
+<div class="console-header">
+
+<span>Developer Console</span>
+
+<button id="clearConsole">
+
+🗑 پاک کردن
+
+</button>
+
+</div>
+
+<div id="consoleLog">
+
+<div class="log info">
+
+<span class="time">--:--:--</span>
+
+<span class="type">INFO</span>
+
+<span class="text">
+
+Console Ready...
+
+</span>
+
+</div>
+
+</div>
+
+</section>
